@@ -10,7 +10,7 @@ const Input = ({
   onChange,
   ...props
 }) => {
-  const inputId = id || label?.toLowerCase().replace(/\s+/g, '-') || undefined;
+  const inputId = id || undefined;
 
   return (
  <>

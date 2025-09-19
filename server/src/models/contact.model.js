@@ -8,8 +8,7 @@ const contactSchema = new mongoose.Schema({
   },
   lastName: {
     type: String,
-    required: true,
-    trim: true
+    default:""
   },
   email: {
     type: String,
@@ -25,19 +24,19 @@ const contactSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  status: {
-    type: String,
-    enum: ['new', 'read', 'replied', 'archived'],
-    default: 'new'
-  },
-  isRead: {
-    type: Boolean,
-    default: false
-  },
-  readAt: Date,
-  repliedAt: Date,
+  // status: {
+  //   type: String,
+  //   enum: ['new', 'read', 'replied', 'archived'],
+  //   default: 'new'
+  // },
+  // isRead: {
+  //   type: Boolean,
+  //   default: false
+  // },
+  // readAt: Date,
+  // repliedAt: Date,
   ipAddress: String,
-  userAgent: String
+  // userAgent: String
 }, {
   timestamps: true
 })

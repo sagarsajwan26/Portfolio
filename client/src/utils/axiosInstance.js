@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance= axios.create({
-    baseUrl:'http://localhost:3000/api/v1',
+    baseURL:'http://localhost:3000/api/v1',
     withCredentials:true
 })
 
@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use((response)=>response,
 
 
 export const axiosBaseQuery= ({baseUrl}={baseUrl:''})=>{
-async({url, method, data, params})=>{
+return async({url, method, data, params})=>{
     try {
             const response = await axiosInstance({url, method, data, params})
             return {data:response.data}

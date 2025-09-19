@@ -1,10 +1,15 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap';
 import { SplitText } from 'gsap/all';
-
+import logo from '../../../assets/logo.png'
+import { useNavigate } from 'react-router-dom';
 const PortfolioName = () => {
-const container = useRef()
+  const navigate = useNavigate()
+  const [countClick, setCountClick] = useState(0)
+
+
+  const container = useRef()
 
 const nameRef= useRef()
 const portfolioRef = useRef()
@@ -48,13 +53,27 @@ useGSAP(()=>{
 })
 
 
+
+
   return (
     <div 
        onMouseMove={handleMouseMove} className='h-screen w-full flex items-center justify-center   relative mb-[10vw]'>
-        <span className='w-20 h-20 absolute top-10 left-5  ' >
+        <span
+        onClick={()=>  {
+          setCountClick(countClick+1)
+          if(countClick===2){
+            navigate('/admin/auth')
+          }
+             setTimeout(()=>{
+              setCountClick(0)
+          },3000)
+        }
+       
+        }
+        className='w-20 h-20 absolute top-10 left-5  ' >
           <img 
-         
-          className='h-full w-full rounded-full object-cover opacity-70 ' src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          
+          className='h-full w-full rounded-full object-cover opacity-70 ' src={logo} alt="" />
         </span>
         <div className='h-[60vh] w-[50vw] flex flex-col justify-center items-center relative'>
           <span className=' w-[20vw]  absolute -z-5' >

@@ -1,85 +1,93 @@
 import mongoose from 'mongoose'
 
-const portfolioSettingsSchema = new mongoose.Schema({
-  siteName: {
-    type: String,
-    default: 'Portfolio'
+const aboutImagesSchema= new mongoose.Schema({
+     url: String,
+    public_id: String,
+})
+
+const quoteImagesSchema= new mongoose.Schema({
+   url: String,
+    public_id: String,
+})
+
+
+const portfolioSchema = new mongoose.Schema({
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+    unique: true
   },
-  tagline: {
+  logo:{
+     url: String,
+    public_id: String,
+
+  },
+  
+  subtitle: {
     type: String,
     default: 'Illustrator and Designer'
   },
-  heroTitle: {
-    type: String,
-    default: 'PORTFOLIO'
+  aboutMe:{
+    type:String,
+    default:"I am a digital nomad currently based in Hong Kong. I've been working in graphic design for the past ten years. It was only in the past three that I decided to focus full-time on illustrating."
   },
-  aboutMeTitle: {
-    type: String,
-    default: 'A Little About Me'
-  },
-  aboutMeDescription: String,
-  skillsTitle: {
-    type: String,
-    default: 'Skill & Expertise'
-  },
-  workExperienceTitle: {
-    type: String,
-    default: 'Work Experience'
-  },
-  contactTitle: {
-    type: String,
-    default: 'Work with me'
-  },
-  heroImages: [{
+  aboutImages: [aboutImagesSchema],
+  skillandExpertiesImage:{
     url: String,
-    alt: String,
-    isActive: {
-      type: Boolean,
-      default: true
-    }
-  }],
-  aboutImages: [{
-    url: String,
-    alt: String,
-    isActive: {
-      type: Boolean,
-      default: true
-    }
-  }],
-  theme: {
-    primaryColor: {
-      type: String,
-      default: '#000000'
-    },
-    secondaryColor: {
-      type: String,
-      default: '#ffffff'
-    },
-    accentColor: {
-      type: String,
-      default: '#424040'
-    },
-    fontFamily: {
-      type: String,
-      default: 'Urbanist'
-    }
+    public_id: String,
+    
+
   },
-  seo: {
-    metaTitle: String,
-    metaDescription: String,
-    keywords: [String],
-    ogImage: String
-  },
-  isActive: {
-    type: Boolean,
-    default: true
-  },
-  updatedBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User'
-  }
+  
+  // quote: {
+  //   type: String,
+  //   default: 'I Was Created to create'
+  // },
+  quoteImages: [quoteImagesSchema],
+  
+  // metaTitle: String,
+  // metaDescription: String,
+  // keywords: [String],
+  
+  // theme: {
+  //   type: String,
+  //   enum: ['light', 'dark', 'auto'],
+  //   default: 'light'
+  // },
+  // isPublic: {
+  //   type: Boolean,
+  //   default: true
+  // },
+  // customDomain: String,
+  
+ 
+  
 }, {
   timestamps: true
 })
 
-export const PortfolioSettings = mongoose.model('PortfolioSettings', portfolioSettingsSchema)
+portfolioSchema.virtual('user', {
+  ref: 'User',
+  localField: 'owner',
+  foreignField: '_id',
+  justOne: true
+})
+
+portfolioSchema.virtual('projects', {
+  ref: 'Project',
+  localField: 'owner',
+  foreignField: 'createdBy'
+})
+
+portfolioSchema.virtual('skills', {
+  ref: 'Skill',
+  localField: 'owner',
+  foreignField: 'createdBy'
+})
+
+
+portfolioSchema.index({ isPublic: 1 })
+portfolioSchema.index({ customDomain: 1 })
+
+export const Portfolio = mongoose.model('Portfolio', portfolioSchema)

@@ -54,7 +54,8 @@ const userSchema = new mongoose.Schema({
   lastName: {
     type: String,
     required: true,
-    trim: true
+    trim: true,
+    
   },
   email: {
     type: String,
@@ -79,7 +80,11 @@ const userSchema = new mongoose.Schema({
     enum: ['admin', 'user'],
     default: 'user'
   },
-  profileImage: String,
+  profileImage: {
+    type: String,
+    default: ''
+
+  },
   bio: String,
   title: {
     type: String,

@@ -6,6 +6,6 @@ export const connectDB=async()=>{
         console.log("DB connected", instance.connections[0].host)
     } catch (error) {
         console.log(error)
-        process.env(1)
+        process.exit(1)
     }
 }

@@ -7,12 +7,21 @@ import PortfolioSingleProject from './pages/Portfolio/components/Project/Portfol
 import PortfolioContactDetailPage from './pages/Portfolio/components/Contact/PortfolioContactDetailPage'
 import PortfolioContactPage from './pages/Portfolio/components/PortfolioContactPage'
 import AdminAuth from './pages/Admin/AdminAuth'
+import AdminLayout from './layout/admin/AdminLayout'
+import {ToastContainer} from 'react-toastify'
+import ProjectAdding from './test/ProjectAdding'
+import ProjectById from './test/ProjectById'
 
 const App = () => {
   return (
     <div>
     <BrowserRouter>
     <Routes>
+      <Route path='/addingProjectTest' element={<ProjectAdding/>}/>
+      <Route path='/ProjectById' element={<ProjectById />}/>
+      
+      
+      
       <Route path='/' element={<PortfolioLayout/>}/>
       <Route path='/sagarsajwan/skills' element={<PortfolioSkillsDetailPage/>}/>
       <Route path ='/sagarsajwan/projects' element={ <PortfolioProjectsList />} />
@@ -21,11 +30,12 @@ const App = () => {
         <Route path='/sagarsajwan/contact' element={<PortfolioContactPage/>}/>
    
 
-   {/* admin  */}
+
       <Route path='/admin/auth' element={<AdminAuth/>}/>
+      <Route path='/admin/homepage' element={<AdminLayout/>}/>
     </Routes>
     </BrowserRouter>
-
+      <ToastContainer />
     </div>
   )
 }

@@ -11,6 +11,15 @@ const skillSchema = new mongoose.Schema({
     required: true,
     enum: ['Frontend', 'Backend', 'Database', 'DevOps', 'Tools', 'Languages', 'Frameworks', 'Other']
   },
+  // categoryIcon: {
+  //   type: String,
+  //   default: '🔧'
+  // },
+  categoryColor: {
+    type: String,
+    default: '#424040'
+  },
+
   proficiencyLevel: {
     type: String,
     enum: ['Beginner', 'Intermediate', 'Advanced', 'Expert'],
@@ -22,16 +31,13 @@ const skillSchema = new mongoose.Schema({
     max: 50
   },
   description: String,
-  icon: String,
-  color: String,
+  skillIcon: String,
+  skillColor: String,
   isActive: {
     type: Boolean,
     default: true
   },
-  order: {
-    type: Number,
-    default: 0
-  },
+
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -40,33 +46,9 @@ const skillSchema = new mongoose.Schema({
   timestamps: true
 })
 
-const skillCategorySchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-    trim: true
-  },
-  description: String,
-  icon: String,
-  color: String,
-  order: {
-    type: Number,
-    default: 0
-  },
-  isActive: {
-    type: Boolean,
-    default: true
-  }
-}, {
-  timestamps: true
-})
-
 skillSchema.index({ category: 1, name: 1 })
 skillSchema.index({ proficiencyLevel: 1 })
 skillSchema.index({ order: 1 })
-
-skillCategorySchema.index({ order: 1 })
+skillSchema.index({ categoryOrder: 1 })
 
 export const Skill = mongoose.model('Skill', skillSchema)
-export const SkillCategory = mongoose.model('SkillCategory', skillCategorySchema)

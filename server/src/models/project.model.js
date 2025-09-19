@@ -8,6 +8,10 @@ const screenshotSchema = new mongoose.Schema({
   caption: {
     type: String,
     required: true
+  },
+  public_id:{
+    type:String,
+    required:true
   }
 })
 
@@ -35,7 +39,7 @@ const projectSchema = new mongoose.Schema({
   },
   liveDemoUrl: {
     type: String,
-    required: true
+    default:''
   },
   role: {
     type: String,

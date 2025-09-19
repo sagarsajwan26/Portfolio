@@ -13,7 +13,7 @@ export const errorHandler= (err,req,res,next)=>{
             })
         }
 
-         res.status(500).json({
+       return   res.status(500).json({
         status: 'error',
         message: 'Internal Server Error',
         stack: process.env.NODE_ENV === 'production' ? undefined : err.stack,
