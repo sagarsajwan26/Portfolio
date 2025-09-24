@@ -28,7 +28,12 @@ const skillSchema = new mongoose.Schema({
   yearsOfExperience: {
     type: Number,
     min: 0,
-    max: 50
+    max: 50,
+    default:0
+  },
+  public_id:{
+    type:String,
+    required:true
   },
   description: String,
   skillIcon: String,

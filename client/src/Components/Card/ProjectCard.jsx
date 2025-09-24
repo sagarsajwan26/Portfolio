@@ -41,7 +41,7 @@ const ProjectCard = ({project}) => {
                       <div  className='flex gap-2 mt-3 mb-3'  >
                         {
                           project.technologies.slice(0,3).map((tech,idx)=>(
-                            <span className='px-4 py-2 text-xs rounded-full border-2 border-[#3331314e] cursor-pointer ' >{tech.split(' ')[0]}</span>
+                            <span key={idx} className='px-4 py-2 text-xs rounded-full border-2 border-[#3331314e] cursor-pointer ' >{tech.split(' ')[0]}</span>
                           ))
                         }
                         {

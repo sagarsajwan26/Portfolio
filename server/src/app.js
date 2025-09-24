@@ -8,6 +8,7 @@ import skillRoutes from './routes/skill.routes.js'
 import projectRoutes from './routes/project.routes.js'
 import contactRoutes from './routes/contact.routes.js'
 import porfolioRouter from './routes/portfolio.routes.js'
+import dashboardRouter from './routes/dashboard.routes.js'
 import { errorHandler } from './middleware/errorHandler.js'
 const app= express()
 app.use(helmet())
@@ -29,6 +30,7 @@ app.use('/api/v1/skill',skillRoutes)
 app.use('/api/v1/project',projectRoutes)
 app.use('/api/v1/contact', contactRoutes)
 app.use('/api/v1/portfolio',porfolioRouter)
+app.use('/api/v1/dashboard',dashboardRouter)
 
 app.get('/',(req,res)=>{
     res.send('my profile server is working properly')

@@ -57,7 +57,7 @@ useGSAP(()=>{
 
   return (
     <div 
-       onMouseMove={handleMouseMove} className='h-screen w-full flex items-center justify-center   relative mb-[10vw]'>
+       onMouseMove={handleMouseMove} className='min-h-screen w-full flex items-center justify-center relative mb-10 md:mb-[10vw] px-4 md:px-0'>
         <span
         onClick={()=>  {
           setCountClick(countClick+1)
@@ -70,40 +70,41 @@ useGSAP(()=>{
         }
        
         }
-        className='w-20 h-20 absolute top-10 left-5  ' >
+        className='w-12 h-12 md:w-20 md:h-20 absolute top-4 left-4 md:top-10 md:left-5' >
           <img 
           
           className='h-full w-full rounded-full object-cover opacity-70 ' src={logo} alt="" />
         </span>
-        <div className='h-[60vh] w-[50vw] flex flex-col justify-center items-center relative'>
-          <span className=' w-[20vw]  absolute -z-5' >
+        <div className='h-auto md:h-[60vh] w-full md:w-[50vw] flex flex-col justify-center items-center relative py-8 md:py-0'>
+          <span className='w-32 md:w-[20vw] absolute -z-5 hidden md:block' >
             <img 
              ref={imageRef}
        
             className='h-full w-full rounded-2xl object-cover opacity-70 rotate-12' src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
           </span>
-<div className='h-full w-full flex items-center justify-between flex-col '>
+<div className='h-full w-full flex items-center justify-between flex-col gap-8 md:gap-0'>
   
           <h1  
           ref={nameRef}
-          className='text-8xl font-semibold font-[Besley] text-[#424040] ' >Sagar Sajwan</h1>
+          className='text-4xl md:text-6xl lg:text-8xl font-semibold font-[Besley] text-[#424040] text-center' >Sagar Sajwan</h1>
 
-        <div className=' w-full flex flex-col items-center justify-center  leading-20 '>
+        <div className='w-full flex flex-col items-center justify-center text-center'>
           
           <h2 
           ref={portfolioRef}
-          className='text-[9vw]  font-bold font-[Urbanist] ' >PORTFOLIO</h2>
-          <p>Illustrator and Designer </p>
+          className='text-[15vw] md:text-[9vw] font-bold font-[Urbanist]' >PORTFOLIO</h2>
+          <p className='text-sm md:text-base'>Illustrator and Designer </p>
         </div>
 </div>
         </div>
         <span 
-        className='absolute top-[90%] opacity-[30%]'
+        className='absolute bottom-4 md:top-[90%] opacity-[30%]'
         >
           <svg
   fill="#000000"
-  width="25px"
-  height="25px"
+  width="20px"
+  height="20px"
+  className='md:w-[25px] md:h-[25px]'
   viewBox="0 0 35 35"
   data-name="Layer 2"
   id="a79254cb-3f14-4275-904f-2c1744762c58"

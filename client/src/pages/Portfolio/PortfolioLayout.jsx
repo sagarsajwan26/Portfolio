@@ -59,7 +59,7 @@ const movingBall=useRef()
     className='relative' >  
       <div 
        ref={movingBall}
-      className='fixed h-3 w-3 rounded-full bg-black z-[9999] pointer-events-none' >
+      className='fixed h-3 w-3 rounded-full bg-black z-[9999] pointer-events-none hidden md:block' >
       </div>
 
       <PortfolioName />

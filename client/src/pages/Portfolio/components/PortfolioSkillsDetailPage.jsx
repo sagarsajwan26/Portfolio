@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import SkillCard from '../../../Components/Card/SkillCard'
 
 const PortfolioSkillsDetailPage = () => {
   const [currentSkills, setCurrentSkills] = useState('')
@@ -181,16 +182,7 @@ const skills = [
       <div className='grid  grid-cols-3 gap-[4vw] mt-[4vw] font-[Urbanist]' >
         {
           skillArr.map((skill,idx)=>(
-            <div className='col-span-1 flex flex-col p-5 border-2 border-[#c9bebe] rounded-2xl hover:bg-[#000000ae] hover:text-white transition-all ease-in-out duration-300'  >
-              <div  className='flex items-center justify-start gap-6' >
-                
-                 <img className='h-10 w-10 p-2 bg-[#eae0e0] rounded-md object-cover' src={skill.icon} alt="" /> <h4
-                 className='text-2xl  font-bold '
-                 >{skill.name}</h4> </div>
-
-                <p className='text-md font-medium px-2 pt-3 ' >{skill.about}</p>
-
-            </div>
+            <SkillCard skill={skill} key={idx} />
           ))
         }
       </div>

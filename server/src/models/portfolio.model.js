@@ -46,6 +46,7 @@ const portfolioSchema = new mongoose.Schema({
   // },
   quoteImages: [quoteImagesSchema],
   
+  
   // metaTitle: String,
   // metaDescription: String,
   // keywords: [String],

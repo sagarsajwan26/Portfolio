@@ -7,6 +7,15 @@ import {User} from '../models/user.model.js'
 import { uploadToCloudinary } from "../utils/cloudinary.js";
 
 
+
+
+export const getUserData= asyncHandler(async(req,res)=>{
+    const user= await User.find().select('-password').lean()
+    if(user.length==0) throw new ApiError(404,'user not found')
+        return res.status(200).json(new ApiResponse(200,  'user data fetched successfully',user[0] || []))
+})
+
+
 export const updateUserData= asyncHandler(async(req,res)=>{
  const {firstName, lastName, email,  username, bio , title, aboutMe } =req.body 
     if(!firstName && !lastName && !email && !username && !bio && !title && !aboutMe){

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Button = ({
-  label = 'Button',
+  label = '',
   className = '',
   onClick,
   type = 'button',

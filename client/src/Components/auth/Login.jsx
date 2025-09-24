@@ -1,27 +1,37 @@
 import React, { useState } from 'react'
 import logo from '../../assets/logo.png'
-import { useLoginAdminMutation } from '../../store/admin/auth/adminauthApi'
 import Input from '../input/Input'
 import Button from '../input/Button'
 import {toast} from 'react-toastify'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate  } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginAdmin } from '../../store/auth/authThunk'
 
 const Login = () => {
+  const dispatch = useDispatch()
    const [username,setUsername] = useState('')
+   const [isLoading, setisLoading] = useState(false)
    const [password,setPassword] = useState('')
-   const [loginAdmin, {isLoading, error}] = useLoginAdminMutation()
-
+  const navigate= useNavigate()
    const handleLogin= async (e)=>{
     e.preventDefault()
     try {
-      const result = await loginAdmin({username,password}).unwrap()
-      console.log('Login successful:', result)
-      toast.success(result.message)
+        dispatch(loginAdmin({username,password})).then(res=>{
+         if(res.meta.rejectedWithValue){
+          toast.error(res.payload.error)
+         }
+         else if(res.meta.requestStatus==='fulfilled') {
+            toast.success('login successful')
+            navigate('/admin/homepage')
+            
+         }
+         
+          
+        })
       
-      // Handle success (redirect, store token, etc.)
     } catch (err) {
       console.error('Login failed:', err)
-      toast.error(err.data.error)
+     toast.error(err.message || "login failed")
     }
    }
 
@@ -80,11 +90,7 @@ const Login = () => {
             type='submit' 
           />
           
-          {error && (
-            <p className='text-red-500 text-sm text-center mt-2'>
-              {error?.data?.message || 'Login failed. Please try again.'}
-            </p>
-          )}
+         
         </form>
 
         <Link className='flex items-center justify-center gap-5 border-2 border-black px-5 py-2 rounded-full hover:bg-black hover:text-white transition-all ease-in-out duration-300' to='/' >
@@ -92,7 +98,7 @@ const Login = () => {
   version="1.1"
   id="Layer_1"
   xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
+ xmlnsXlink="http://www.w3.org/1999/xlink"
   width="20px"
   height="20px"
   viewBox="0 0 92 92"

@@ -1,12 +1,19 @@
 
 import { configureStore } from '@reduxjs/toolkit'
-import { authApi } from './admin/auth/adminauthApi'
-
+import authSlice from './auth/authSlice'
+import userSlice from './user/userSlice'
+import portfolioSlice from './portfolio/portfolioSlice'
+import dashboardSlice from './dashboard/dashboardSlice'
+import skillSlice from './skills/skillslice'
 export const store= configureStore(
     {
         reducer:{
-          [authApi.reducerPath]:authApi.reducer
-        } ,
-        middleware:(getDefaultMiddleware)=> getDefaultMiddleware().concat(authApi.middleware)       
+         
+          auth:authSlice,
+          portfolio:portfolioSlice,
+          user:userSlice,
+          dashboard:dashboardSlice,
+          skill:skillSlice
+        }  
     }
 )

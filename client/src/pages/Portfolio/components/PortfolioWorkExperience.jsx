@@ -2,12 +2,13 @@ import React from 'react'
 
 const PortfolioWorkExperience = () => {
   return (
-    <div className=' h-screen  px-[10vw] my-[10vh]  flex flex-col items-start justify-center gap-[8vw] relative  '>
-      <span className='absolute left-[50%] top-[90%] opacity-[40%]' >
+    <div className='min-h-screen px-4 md:px-[10vw] my-10 md:my-[10vh] flex flex-col items-center md:items-start justify-center gap-8 md:gap-[8vw] relative'>
+      <span className='absolute left-[50%] bottom-4 md:top-[90%] opacity-[40%]' >
         <svg
   fill="#000000"
-  width="25px"
-  height="25px"
+  width="20px"
+  height="20px"
+  className='md:w-[25px] md:h-[25px]'
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -17,33 +18,30 @@ const PortfolioWorkExperience = () => {
 </svg>
 
       </span>
-     <h1 className='text-8xl font-md leading-[0.8] font-[Urbanist]' >Work 
+     <h1 className='text-4xl md:text-6xl lg:text-8xl font-md leading-tight font-[Urbanist] text-center md:text-left' >Work 
       <br />
       Experience</h1>
 
-     <div className='grid grid-cols-4 '>
-      <div>
-        <h3 className='text-2xl font-[Arsenica]'  >Agency Work</h3>
-        <p className='text-md font-[Urbanist] font-bold text-[#565656]' >Comany Name</p>
-        <p className='text-md font-[Urbanist] font-bold text-[#565656]' >Seccond Compnay Name </p>
-        <p className='text-md font-[Urbanist] font-bold text-[#565656]'>JKIL Design Studio</p>
-        <p className='text-md font-[Urbanist] font-bold text-[#565656]' >Senior Developer</p>
+     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-4 w-full'>
+      <div className='text-center md:text-left'>
+        <h3 className='text-xl md:text-2xl font-[Arsenica] mb-2'>Agency Work</h3>
+        <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656] mb-1'>Company Name</p>
+        <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656] mb-1'>Second Company Name</p>
+        <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656] mb-1'>JKIL Design Studio</p>
+        <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656]'>Senior Developer</p>
 
       </div>
-        <div>
-          <h1>
-            <h3 className='text-2xl font-[Arsenica]' >Freelance Work</h3>
-            <p className='text-md font-[Urbanist] font-bold text-[#565656]' >Comany Name</p>
-            <p className='text-md font-[Urbanist] font-bold text-[#565656]' >Seccond Compnay Name </p>
-           
-          </h1>
+        <div className='text-center md:text-left'>
+            <h3 className='text-xl md:text-2xl font-[Arsenica] mb-2'>Freelance Work</h3>
+            <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656] mb-1'>Company Name</p>
+            <p className='text-sm md:text-md font-[Urbanist] font-bold text-[#565656]'>Second Company Name</p>
         </div>
 
-        <div className='grid-cols-1'>
+        <div className='hidden lg:block'>
 
         </div>
-        <div className='col-span-1 justify-end '>
-          <img  className='w-full opacity-70 grayscale-50 rounded-md ' src="https://images.unsplash.com/photo-1503467913725-8484b65b0715?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+        <div className='flex justify-center md:justify-end'>
+          <img className='w-48 md:w-full h-48 md:h-auto opacity-70 grayscale-50 rounded-md object-cover' src="https://images.unsplash.com/photo-1503467913725-8484b65b0715?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
         </div>
      </div>
     

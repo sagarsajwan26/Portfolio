@@ -4,10 +4,12 @@ import { asyncHandler } from "../utils/AsyncHandler.js";
 import { logger } from "../utils/logger.js";
 import {} from "../utils/validator.js";
 import { Skill } from "../models/skill.models.js";
-import { uploadToCloudinary } from "../utils/cloudinary.js";
+import { deleteFromCloudinary, uploadToCloudinary } from "../utils/cloudinary.js";
 import { User } from "../models/user.model.js";
 
 export const addSkill = asyncHandler(async (req, res) => {
+  console.log(req.body);
+  
   const {
     name,
     category,
@@ -38,6 +40,7 @@ export const addSkill = asyncHandler(async (req, res) => {
     description,
     skillColor,
     isActive,
+    public_id:uploadImage.public_id,
     skillIcon: uploadImage.secure_url,
     createdBy: req.user._id,
   });
@@ -50,6 +53,9 @@ export const addSkill = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "Skill created successfully", skill));
 });
 export const updateSkill = asyncHandler(async (req, res) => {
+  console.log(req.body);
+  
+  const {id,public_id} = req.params
   const {
     name,
     category,
@@ -60,24 +66,18 @@ export const updateSkill = asyncHandler(async (req, res) => {
     skillColor,
     isActive,
   } = req.body;
-  let updateData = {};
+  let updateData = {...req.body};
 
-  if (name) updateData.name = name;
-  if (category) updateData.category = category;
-  if (categoryColor) updateData.categoryColor = categoryColor;
-  if (proficiencyLevel) updateData.proficiencyLevel = proficiencyLevel;
-  if (yearsOfExperience) updateData.yearsOfExperience = yearsOfExperience;
-  if (description) updateData.description = description;
-  if (skillColor) updateData.skillColor = skillColor;
-  if (isActive) updateData.isActive = isActive;
 
   const image = req.file;
   let uploadImage;
   if (image) {
+  
     uploadImage = await uploadToCloudinary(image.buffer);
+    await deleteFromCloudinary(public_id)
   }
 
-  if (uploadImage) updateData.skillIcon = uploadImage.secure_url;
+  if (uploadImage) updateData.skillIcon = uploadImage.secure_url   ;
 
   const skill = await Skill.findOneAndUpdate(
     { _id: req.params.id, createdBy: req.user._id },
@@ -94,6 +94,9 @@ export const updateSkill = asyncHandler(async (req, res) => {
 });
 
 export const deleteSkill = asyncHandler(async (req, res) => {
+
+
+  await deleteFromCloudinary(req.params.public_id)
   const skill = await Skill.findOneAndDelete({
     _id: req.params.id,
     createdBy: req.user._id,
@@ -129,3 +132,11 @@ export const getSkills = asyncHandler(async (req, res) => {
 
   return res.status(200).json(new ApiResponse(200, "skills fetched", skills));
 });
+
+export const getSkillById= asyncHandler(async(req,res)=>{
+  const skill= await Skill.findById(req.params.id).lean()
+  
+  if(!skill) throw new ApiError(404, "skill not found")
+    return res.status(200).json(new ApiResponse(200, "skill fetched", skill))
+
+})

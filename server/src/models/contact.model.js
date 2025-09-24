@@ -29,11 +29,11 @@ const contactSchema = new mongoose.Schema({
   //   enum: ['new', 'read', 'replied', 'archived'],
   //   default: 'new'
   // },
-  // isRead: {
-  //   type: Boolean,
-  //   default: false
-  // },
-  // readAt: Date,
+  isRead: {
+    type: Boolean,
+    default: false
+  },
+  readAt: Date,
   // repliedAt: Date,
   ipAddress: String,
   // userAgent: String

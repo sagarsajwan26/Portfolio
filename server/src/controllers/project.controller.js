@@ -299,9 +299,12 @@ export const deleteProject = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "project deleted", projectDeleted));
 });
 export const getProjects = asyncHandler(async (req, res) => {
+
+
+  
           const limit = parseInt(req.query.limit) || 10
         const skip = parseInt(req.query.skip) || 10
-  const projects = await Project.limit(limit).skip(skip).sort({createdAt:-1}).lean();
+  const projects = await Project.find().limit(limit).skip(skip).sort({createdAt:-1}).lean();
   return res
     .status(200)
     .json(new ApiResponse(200, "products fetched", projects || []));

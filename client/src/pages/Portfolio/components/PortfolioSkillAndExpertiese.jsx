@@ -4,12 +4,13 @@ import { useNavigate } from 'react-router-dom'
 const PortfolioSkillAndExpertiese = () => {
   const navigate= useNavigate()
   return (
-    <div className='grid grid-cols-2 items-center font-[Urbanist] my-[10vh] px-[10vw] gap-[5vw] relative py-[10vh]' >
-  <span className='absolute left-[50%] top-[90%] opacity-[40%]' >
+    <div className='grid grid-cols-1 lg:grid-cols-2 items-center font-[Urbanist] my-10 md:my-[10vh] px-4 md:px-[10vw] gap-8 md:gap-[5vw] relative py-10 md:py-[10vh]' >
+  <span className='absolute left-[50%] bottom-4 md:top-[90%] opacity-[40%]' >
         <svg
   fill="#000000"
-  width="25px"
-  height="25px"
+  width="20px"
+  height="20px"
+  className='md:w-[25px] md:h-[25px]'
   viewBox="0 0 24 24"
   xmlns="http://www.w3.org/2000/svg"
 >
@@ -20,28 +21,27 @@ const PortfolioSkillAndExpertiese = () => {
 
       </span>
      
-      <div className='col-span-1 flex flex-col gap-[3vw] items-start ' >
-        <h1 className='text-8xl text-center leading-[0.8] uppercase font-medium tracking-tighter' >
-
+      <div className='flex flex-col gap-6 md:gap-[3vw] items-center lg:items-start' >
+        <h1 className='text-4xl md:text-6xl lg:text-8xl text-center lg:text-left leading-tight uppercase font-medium tracking-tighter' >
           Skill & <br />
           Expertise
         </h1>
-        <div className='w-[80%] flex items-center justify-center ' >
-          <img className='h-full w-full rounded-md object-cover ' src="https://plus.unsplash.com/premium_photo-1664372145543-d60ba2756a7e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+        <div className='w-full md:w-[80%] flex items-center justify-center' >
+          <img className='h-48 md:h-64 lg:h-full w-full rounded-md object-cover' src="https://plus.unsplash.com/premium_photo-1664372145543-d60ba2756a7e?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
         </div>
 
       </div>
-      <div className='col-span-1  grid grid-cols-2 content-center gap-[2vw]  h-full relative ' >
+      <div className='grid grid-cols-2 content-center gap-4 md:gap-[2vw] h-full relative' >
          <button  
 
          onClick={()=> navigate('/sagarsajwan/skills')}
-  className="absolute bg-black text-white px-[1.5vw] py-[1vh] flex items-center justify-center rounded-full text-xl font-semibold hover:bg-white hover:text-black border-2 border-black transition-all duration-300 ease-in-out cursor-pointer gap-2 bottom-10 right-10"
+  className="absolute bg-black text-white px-4 md:px-[1.5vw] py-2 md:py-[1vh] flex items-center justify-center rounded-full text-sm md:text-xl font-semibold hover:bg-white hover:text-black border-2 border-black transition-all duration-300 ease-in-out cursor-pointer gap-2 -bottom-4 md:bottom-10 right-0 md:right-10"
 >
   Check Out 
   <svg 
     className="fill-current transition-colors duration-300 ease-in-out"
-    width="25px"
-    height="25px"
+    width="20px"
+    height="20px"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -51,8 +51,8 @@ const PortfolioSkillAndExpertiese = () => {
   </svg>
 </button>
         {[1,2,3,4].map((item,idx)=>(
-          <div  key={idx}>
-             <h1 className='text-2xl font-semibold text-[#6e6565] tracking-wider' >
+          <div key={idx}>
+             <h1 className='text-lg md:text-2xl font-semibold text-[#6e6565] tracking-wider text-center lg:text-left' >
               Backend
               </h1> 
               
