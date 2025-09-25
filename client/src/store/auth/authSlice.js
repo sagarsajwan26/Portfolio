@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { loginAdmin, logoutAdmin } from "./authThunk"
 
 const initialState={
-    isAuthenticated:true,
+    isAuthenticated:false,
     token:'',
  
 }

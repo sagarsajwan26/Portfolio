@@ -1,7 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit"
 import { addSkill, deleteSkillData, fetchSkills, getSingleSkill } from "./skillThunk"
-import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState={
     skills:null,

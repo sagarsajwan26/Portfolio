@@ -1,14 +1,22 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../../../Components/input/Button'
-import {useDispatch} from 'react-redux'
-import { fetchProjectsForAdmin } from '../../../store/portfolio/portfolioThunk'
+import {useDispatch, useSelector} from 'react-redux'
+import { FetchAllProjectsForAdmin } from '../../../store/projects/projectThunk'
+import ProjectCard from '../../../Components/Card/ProjectCard'
+import { useNavigate } from 'react-router-dom'
  const AdminProjects = () => {
   const dispatch = useDispatch()
-  useEffect(()=>{
-dispatch(fetchProjectsForAdmin()).then(res=>{
-  console.log(res);
+  const {adminProjects} = useSelector(state=> state.project)
+  const [limit, setlimit]= useState(5)
+  const [skip,setSkip] = useState(0)
   
-})
+  const navigate= useNavigate()
+  
+
+
+  
+  useEffect(()=>{
+dispatch(FetchAllProjectsForAdmin({limit, skip}))
   },[])
   return (
     <div className='min-h-screen mt-[12vh]' >
@@ -42,14 +50,23 @@ dispatch(fetchProjectsForAdmin()).then(res=>{
 </div>
 </div>
 </div>
-<div>
-  <div>
-    <h3>All projects</h3>
-    <p>Complete portfolio of creative work and solutions</p>
+<div className='flex my-[5vw] flex-col gap-[5vw] ' >
+  <div className='flex items-center justify-center flex-col w-full relative' >
+    <h3 className='text-4xl text-[#00000088] mb-5 font-semibold' >All projects</h3>
+    <p className='text-xl text-[#1f181887]' >Complete portfolio of creative work and solutions</p>
+    <span className='absolute right-[10%] ' >
+      <Button 
+    onClick={()=>navigate(`/admin/homepage/projects/add`)}
+    label='Add new Project' className='rounded-full hover:bg-black hover:text-white' /></span>
   </div>
 
-  <div>
+  <div className='grid lg:grid-cols-3 gap-6 px-10' >
     
+    {
+      adminProjects?.map((project,idx)=>(
+        <ProjectCard key={idx} project={project} />
+      ))
+    }
   </div>
   
 </div>

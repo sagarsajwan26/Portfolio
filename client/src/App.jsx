@@ -18,6 +18,8 @@ import AdminProfile from './pages/Admin/AdminProfile/AdminProfile'
 import AdminProjects from './pages/Admin/AdminProjects/AdminProjects'
 import EditSkill from './pages/Admin/skill&Expertise/EditSkill'
 import AddSkill from './pages/Admin/skill&Expertise/AddSkill'
+import AdminAddProject from './pages/Admin/AdminProjects/AdminAddProject'
+import AdminEditProject from './pages/Admin/AdminProjects/EditProject/AdminEditProject'
 
 const App = () => {
   return (
@@ -48,6 +50,8 @@ const App = () => {
       <Route path='projects' element={<AdminProjects />} />
       <Route path='profile' element={<AdminProfile />} />
 
+      <Route path="projects/add" element={<AdminAddProject />} />
+      <Route path="project/edit/:projectId" element={<AdminEditProject />} />
       </Route>
       </Route>
    

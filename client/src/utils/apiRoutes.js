@@ -25,8 +25,8 @@ export const API_ROUTES = {
     DELETE_IMAGE: (projectId, imageId, publicId) => `/project/deleteProjectImage/${projectId}/${imageId}/${publicId}`,
     ADD_SCREENSHOT: (projectId) => `/project/addScreenshot/${projectId}`,
     DELETE: (projectId) => `/project/deleteProject/${projectId}`,
-    GET_PROJECT_FOR_USER:`/project/getProjectsForuser`,
-    GET_PROJECT_FOR_ADMIN:`/project/getProjects`,
+    GET_PROJECT_FOR_USER:()=>`/project/getProjectsForuser`,
+    GET_PROJECT_FOR_ADMIN:(limit,skip)=>`/project/getProjects?limit=${limit}&skip=${skip}`,
   },
 
  
@@ -80,7 +80,7 @@ export const apiService = {
   addScreenshot: (projectId, formData) => axiosInstance.post(API_ROUTES.PROJECT.ADD_SCREENSHOT(projectId), formData),
   deleteProject: (projectId) => axiosInstance.delete(API_ROUTES.PROJECT.DELETE(projectId)),
   getProjectsForUser:()=> axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_USER) ,
-  getProjectsForAdmin:()=> axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_ADMIN) ,
+  getProjectsForAdmin:(limit,skip)=> axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_ADMIN(limit,skip)) ,
 
   // Skills
   getSkills: () => axiosInstance.get(API_ROUTES.SKILL.GET_ALL),

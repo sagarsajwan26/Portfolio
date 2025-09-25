@@ -92,7 +92,7 @@ export const addProject = asyncHandler(async (req, res) => {
 });
 
 export const updateProjectStringData = asyncHandler(async (req, res) => {
-  console.log(req.body);
+ 
 
   const {
     projectTitle,
@@ -299,25 +299,33 @@ export const deleteProject = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, "project deleted", projectDeleted));
 });
 export const getProjects = asyncHandler(async (req, res) => {
-
-
+  const limit = parseInt(req.query.limit) || 10
+  const skip = parseInt(req.query.skip) || 0
   
-          const limit = parseInt(req.query.limit) || 10
-        const skip = parseInt(req.query.skip) || 10
-  const projects = await Project.find().limit(limit).skip(skip).sort({createdAt:-1}).lean();
+  const projects = await Project.find({createdBy: req.user._id})
+    .limit(limit)
+    .skip(skip)
+    .sort({createdAt: -1})
+    .lean()
+  
   return res
     .status(200)
-    .json(new ApiResponse(200, "products fetched", projects || []));
+    .json(new ApiResponse(200, "projects fetched", projects || []));
 });
 
 export const getProjectsForuser = asyncHandler(async (req, res) => {
-        const limit = parseInt(req.query.limit) || 10
-        const skip = parseInt(req.query.skip) || 10
-  const projects = await  Project.find({ isActive: true }).limit(limit).skip(skip).sort({createdAt:-1}).lean();
+  const limit = parseInt(req.query.limit) || 10
+  const skip = parseInt(req.query.skip) || 0
+  
+  const projects = await Project.find({ isActive: true })
+    .limit(limit)
+    .skip(skip)
+    .sort({createdAt: -1})
+    .lean()
 
   return res
     .status(200)
-    .json(new ApiResponse(200, "products fetched", projects || []));
+    .json(new ApiResponse(200, "projects fetched", projects || []));
 });
 
 export const getProjectById = asyncHandler(async (req, res) => {

@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
-import Input from '../Components/input/Input'
 import axios from 'axios'
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM2YmRlZTRhNjM0MzNhMzVmNjc0ZjEiLCJpYXQiOjE3NTgxOTExMjQsImV4cCI6MTc1ODI3NzUyNH0.6KuttWHpRCpUrSlTm18k5loKmN0jy896xHsV3mOpR0g'
+  
 
 const ArrayEditor = ({label ,id ,value}) => {
     const [dataValue, setDataValue] = useState(value?.join(','))
