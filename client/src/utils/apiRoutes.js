@@ -13,7 +13,9 @@ export const API_ROUTES = {
     UPDATE_PROFILE_PIC: '/user/updateProfilePic',
     ADD_WORK_EXPERIENCE: '/user/addUserWorkExperience',
     UPDATE_WORK_EXPERIENCE: (id) => `/user/updateUserWorkExperience/${id}`,
-    UPDATE_CONTACT_INFO: '/user/updateUserContactInfo'
+    UPDATE_CONTACT_INFO: '/user/updateUserContactInfo',
+    UPDATE_USER_SOCIAL_INFO:`/user/updateUserSocialLinkData`,
+    DELETE_USER_EXPERIENCE: (id) => `/user/deleteUserExperience/${id}`
   },
 
   PROJECT: {
@@ -69,7 +71,9 @@ export const apiService = {
   addWorkExperience: (data) => axiosInstance.post(API_ROUTES.USER.ADD_WORK_EXPERIENCE, data),
   updateWorkExperience: (id, data) => axiosInstance.put(API_ROUTES.USER.UPDATE_WORK_EXPERIENCE(id), data),
   updateContactInfo: (data) => axiosInstance.put(API_ROUTES.USER.UPDATE_CONTACT_INFO, data),
-
+  updateUserSocialLinksInfo:(data)=> axiosInstance.put(API_ROUTES.USER.UPDATE_USER_SOCIAL_INFO,data),
+  deleteUserExperience:(id)=> axiosInstance.delete(API_ROUTES.USER.DELETE_USER_EXPERIENCE(id)),
+  
   // Project
   addProject: (formData) => axiosInstance.post(API_ROUTES.PROJECT.ADD, formData),
   getProjectById: (id) => axiosInstance.get(API_ROUTES.PROJECT.GET_BY_ID(id)),

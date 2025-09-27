@@ -53,17 +53,29 @@ const AdminAddProject = () => {
 
     try {
       const form = new FormData()
-      Object.entries(formData).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach(v => form.append(key, v))
-        } else {
-          form.append(key, value)
-        }
-      })
-
+      
+      // Append non-array fields
+      form.append('projectTitle', formData.projectTitle)
+      form.append('description', formData.description)
+      form.append('repositoryUrl', formData.repositoryUrl)
+      if(formData.liveDemoUrl) form.append('liveDemoUrl', formData.liveDemoUrl)
+      form.append('role', formData.role)
+      form.append('teamSize', formData.teamSize)
+      form.append('duration', formData.duration)
+      form.append('isActive', formData.isActive)
+      
+      // Append arrays correctly
+      formData.technologies.forEach(tech => form.append('technologies', tech))
+      formData.features.forEach(feature => form.append('features', feature))
+      formData.challenges.forEach(challenge => form.append('challenges', challenge))
+      formData.lessonLearned.forEach(lesson => form.append('lessonsLearned', lesson))
+      
+      // Append images and captions
+      const captions = images.map(item => item.aboutImage)
+      captions.forEach(caption => form.append('captions', caption))
+      
       images.forEach((item, idx) => {
         form.append(`image_${idx}`, item.currImage)
-        form.append(`captions[${idx}]`, item.aboutImage)
       })
 
       const res = await dispatch(AddProject(form))

@@ -103,6 +103,8 @@ export const updateProjectStringData = asyncHandler(async (req, res) => {
     duration,
     isActive,
   } = req.body;
+  console.log(req.body);
+  
   let updateData = { ...req.body };
   // if(projectTitle) updateData.projectTitle= projectTitle
   // if(description) updateData.description= description
@@ -155,8 +157,11 @@ export const updateProjectImages = asyncHandler(async (req, res) => {
   const { projectId, imageId } = req.params;
 
   const fileImage = req.file;
+  
+
+
+  
   const { caption, public_id, image } = req.body;
-  console.log(req.body);
 
   if (!fileImage && !image) throw new ApiError(400, "image is required");
   const project = await Project.findById(projectId);
@@ -198,6 +203,9 @@ export const deleteProjectImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "id is missing");
   const project = await Project.findById(projectId);
   if (!project) throw new ApiError(404, "invalid Project");
+
+  const screenshotslength= project.screenshots.length
+  if(screenshotslength <=1)  throw new ApiError(400, "project must have at least one image");
   const imageIndex = project.screenshots.findIndex(
     (id) => id._id.toString() == imageId
   );
@@ -266,7 +274,7 @@ export const deleteProject = asyncHandler(async (req, res) => {
   const { projectId } = req.params;
   const project = await Project.findById(projectId);
   if (!project) throw new ApiError(404, "no project found");
-  const imageId = project.screenshots.map((item) => item.public_id);
+  const publicIds = project.screenshots.map((item) => item.public_id);
 
   if (publicIds.length > 0) {
     const deleteResults = await Promise.all(

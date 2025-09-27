@@ -38,7 +38,9 @@ export const AddProject= createAsyncThunk('admin/addProject',async(form,{rejectW
 
 export const handleProjectActive= createAsyncThunk('/admin/project/toggle',async({id, data}, {rejectWithValue})=>{
     try {
-        const res= await apiService.updateProjectStringData(id , data) 
+        const res= await apiService.updateProjectStringData(id , {...data}) 
+       
+        
         return res.data.data
     } catch (error) {
     return rejectWithValue(error.response.data)        
@@ -51,7 +53,9 @@ export const handleProjectActive= createAsyncThunk('/admin/project/toggle',async
 export const handleStringProjectData= createAsyncThunk('/admin/project/string',async(data, {rejectWithValue})=>{
     
     try {
-        const res= await apiService.updateProjectStringData(data.projectId, data)
+        
+    
+        const res= await apiService.updateProjectStringData(data.projectId,{...data} )
         
         
         return res.data.data
@@ -76,7 +80,42 @@ export const handleProjectArrayData= createAsyncThunk('/admin/project/arrayData'
 export const updateProjectImage = createAsyncThunk('/admin/update/updateProjectImage',async(data,{rejectWithValue})=>{
     try {
         
+        
+        
+        const res= await apiService.updateProjectImage(data.projectId ,data.ImageId, data.form)
+        return res.data.data
+        
     } catch (error) {
         return rejectWithValue(error.response.data)
        }
+})
+
+
+export const deleteProjecImage= createAsyncThunk('/admin/project/image/delete',async({projectId, imageId, publicId},{rejectWithValue})=>{
+    try {
+        const res= await apiService.deleteProjectImage(projectId, imageId, publicId)
+        return res.data.data
+        
+    } catch (error) {
+        return rejectWithValue(error.response.data)
+    }
+})
+
+export const addScreenShot = createAsyncThunk('/admin/project/addScreenShot',async({projectId, form}, {rejectWithValue})=>{
+    try {
+        const res= await apiService.addScreenshot(projectId, form)
+        return res.data.data
+    } catch (error) {
+        return rejectWithValue(error.response.data)
+    }
+})
+
+
+export const deleteProject= createAsyncThunk('/admin/project/delete',async(projectId,{rejectWithValue})=>{
+   try {
+    const res= await apiService.deleteProject(projectId)
+    return res.data.data
+   } catch (error) {
+        return rejectWithValue(error.response.data)
+    }
 })

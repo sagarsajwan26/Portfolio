@@ -86,6 +86,7 @@ export const updatePortfolioData= asyncHandler(async(req,res)=>{
 export const updatePortfolioArrayImages= asyncHandler(async(req,res)=>{
     const {id, public_id} =req.params 
     const image= req.file
+    console.log(image);
     
     const uploadImage= await uploadToCloudinary(image.buffer)
     if(!uploadImage) throw new ApiError(500,'image upload failed')

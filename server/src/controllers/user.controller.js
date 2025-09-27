@@ -24,14 +24,8 @@ export const updateUserData= asyncHandler(async(req,res)=>{
 
 
 
-        let updateData= {}
-        if(firstName)updateData.firstName= firstName
-        if(lastName)updateData.lastName= lastName
-        if(email)updateData.email= email
-        if(username)updateData.username= username
-        if(bio)updateData.bio= bio
-        if(title)updateData.title= bio
-        if(aboutMe)updateData.aboutMe= bio
+        let updateData= {...req.body}
+        
 
 
         const updatedUserData= await User.findByIdAndUpdate(req.user._id,{
@@ -42,7 +36,7 @@ export const updateUserData= asyncHandler(async(req,res)=>{
             throw new ApiError(500, 'Something went wrong while updating user data')
         }
         return res.status(200).json(
-            new ApiResponse(200, updatedUserData, 'User data updated successfully')
+            new ApiResponse(200,  'User data updated successfully',updatedUserData)
         )
 
 
@@ -80,14 +74,18 @@ export const updateUserProfilePic= asyncHandler(async(req,res)=>{
 
 })  
 export const addUserWorkExperience= asyncHandler(async(req,res)=>{
+ 
+    
         const {company, position, type,startDate, endDate, isCurrent, description} = req.body
-        if(!company || !position ) throw new ApiError(400, 'fields are required')
-
+            if(!company) throw new ApiError(400, 'company is required')
+            if(!position) throw new ApiError(400, 'position is required')
             const newExperience= await User.findByIdAndUpdate(req.user._id,{
                 $push:{
                 workExperience:req.body
                 }
             },{new:true})
+           
+            
 
             if(!newExperience) throw new ApiError(404,'user not found ')
                 return res.status(200).json(new ApiResponse(200,'Your experience has been added',newExperience))
@@ -121,15 +119,12 @@ export const updateuserWorkExperience= asyncHandler(async(req,res)=>{
 
 
 export const updateUserContactInfo=asyncHandler(async(req,res)=>{
+    console.log(req.body);
+    
         const {email, phone, address, city, state, zipCode}= req.body 
     if(  !email && !phone && !address && !city && !state && !zipCode  ) throw new ApiError(401,'at least one field is required to update')
-        let updateData= { } 
-    if(email) updateData.email= email
-    if(phone) updateData.phone= phone
-    if(address) updateData.address= address
-    if(city) updateData.city= city
-    if(state) updateData.state= state
-    if(zipCode) updateData.zipCode= zipCode
+        let updateData= { ...req.body } 
+  
 
     const update= await User.findByIdAndUpdate(req.user._id,{
         $set : {
@@ -146,15 +141,12 @@ export const updateUserContactInfo=asyncHandler(async(req,res)=>{
 })
 
 export const updateUserSocialLinkData= asyncHandler(async(req,res)=>{
+console.log(req.body);
 
        const {linkedin, github, twitter, website,instagram}= req.body 
     if(  !linkedin && !github && !twitter && !website && !instagram  ) throw new ApiError(401,'at least one field is required to update')
-        let updateData= { } 
-    if(linkedin) updateData.linkedin= linkedin
-    if(github) updateData.github= github
-    if(twitter) updateData.twitter= twitter
-    if(website) updateData.website= website
-    if(instagram) updateData.instagram= instagram
+        let updateData= {...req.body } 
+   
 
 
     const update= await User.findByIdAndUpdate(req.user._id,{
@@ -168,6 +160,20 @@ export const updateUserSocialLinkData= asyncHandler(async(req,res)=>{
     if(!update) throw new ApiError(404,'user not found')
         return res.status(200).json(new ApiResponse(200,'contact info updated successfully' , update))
 
+})
+
+
+export const deleteUserExperience= asyncHandler(async(req,res)=>{
+    const {id}= req.params
+    const user= await User.findByIdAndUpdate(req.user._id,{
+        $pull:{
+            workExperience:{
+                _id:id
+            }
+        }
+    },{new:true})
+
+    return res.status(200).json(new ApiResponse(200,'Experience has been removed',user))
 })
 
 export const updateUserPassword= asyncHandler(async(req, res)=>{

@@ -20,6 +20,11 @@ import EditSkill from './pages/Admin/skill&Expertise/EditSkill'
 import AddSkill from './pages/Admin/skill&Expertise/AddSkill'
 import AdminAddProject from './pages/Admin/AdminProjects/AdminAddProject'
 import AdminEditProject from './pages/Admin/AdminProjects/EditProject/AdminEditProject'
+import AdminAddScreenshot from './pages/Admin/AdminProjects/EditProject/AdminAddScreenshot'
+import AdminPersonalInfo from './pages/Admin/AdminProfile/AdminPersonalInfo'
+import AdminProfessionalInfo from './pages/Admin/AdminProfile/AdminProfessionalInfo'
+import AdminSocialLinks from './pages/Admin/AdminProfile/AdminSocialLinks'
+import AdminContactInfo from './pages/Admin/AdminProfile/AdminContactInfo'
 
 const App = () => {
   return (
@@ -35,9 +40,10 @@ const App = () => {
       <Route path='/sagarsajwan/skills' element={<PortfolioSkillsDetailPage/>}/>
       <Route path ='/sagarsajwan/projects' element={ <PortfolioProjectsList />} />
        <Route path='/sagarsajwan/projects/:id' element={<PortfolioSingleProject/>}/>
-        <Route path='/sagarsajwan/contact' element={<PortfolioContactDetailPage/>}/>
-        <Route path='/sagarsajwan/contact' element={<PortfolioContactPage/>}/>
-          
+       <Route path='/sagarsajwan/contact' element={<PortfolioContactDetailPage />}>
+ 
+</Route>
+
 
 
       <Route path='/admin/auth' element={<AdminAuth/>}/>
@@ -48,10 +54,18 @@ const App = () => {
       <Route path='skill/add' element={<AddSkill />} />
        <Route path='skills/:id' element={<EditSkill />} />
       <Route path='projects' element={<AdminProjects />} />
-      <Route path='profile' element={<AdminProfile />} />
+      <Route path='profile' element={<AdminProfile />} > 
+        <Route index element={<AdminPersonalInfo />} />
+        <Route path='professionalInfo' element={<AdminProfessionalInfo />} />
+        <Route path='SocialInfo' element={<AdminSocialLinks />} />
+        <Route path='contactInfo' element={<AdminContactInfo />} />
+        
+      </Route>
 
       <Route path="projects/add" element={<AdminAddProject />} />
       <Route path="project/edit/:projectId" element={<AdminEditProject />} />
+      <Route path="project/addScreenshot/:projectId" element={<AdminAddScreenshot />} />
+
       </Route>
       </Route>
    

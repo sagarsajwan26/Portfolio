@@ -4,11 +4,25 @@ import { FaGithub } from "react-icons/fa"
 import { useNavigate } from 'react-router-dom'
 import { FaTrash }  from 'react-icons/fa6'
 import { FaEdit } from "react-icons/fa"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { deleteProject } from '../../store/projects/projectThunk'
+import { toast } from 'react-toastify'
 
 const ProjectCard = ({ project }) => {
   const { isAuthenticated } = useSelector(state => state.auth)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const handleProjectDelete= async()=>{
+    await dispatch(deleteProject(project._id)).then(res=>{
+      console.log(res);
+      if(res.meta.rejectedWithValue){
+        toast.error(error.payload.message)
+      }
+      else{
+        toast.success("Project deleted successful")
+      }
+    })
+  }
 
   return (
     <div
@@ -25,6 +39,7 @@ const ProjectCard = ({ project }) => {
           />
           <Button
             label=''
+            onClick={handleProjectDelete}
             icon={<FaTrash />}
             className='rounded-full flex items-center justify-center hover:text-red-400 hover:bg-black'
           />

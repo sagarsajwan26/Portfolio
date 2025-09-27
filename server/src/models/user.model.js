@@ -7,7 +7,8 @@ const socialLinksSchema = new mongoose.Schema({
   github: String,
   twitter: String,
   instagram: String,
-  website: String
+ 
+  facebook:String
 })
 
 const contactInfoSchema = new mongoose.Schema({

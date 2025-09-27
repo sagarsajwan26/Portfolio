@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { AddProject, FetchAllProjectsForAdmin, fetchProjectById, handleProjectActive, handleProjectArrayData, handleStringProjectData } from "./projectThunk"
+import { AddProject, deleteProjecImage, deleteProject, FetchAllProjectsForAdmin, fetchProjectById, handleProjectActive, handleProjectArrayData, handleStringProjectData } from "./projectThunk"
 
 const initialState={
     userProjects:null,
@@ -31,10 +31,34 @@ const projectSlice= createSlice({
 
             builder.addCase(handleProjectArrayData.fulfilled,(state,action)=>{
                 const index= state.adminProjects.findIndex(id=> id._id=== action.payload._id)
+                console.log(action.payload);
+                console.log(JSON.parse(JSON.stringify(state.adminProjects)));
+                
+                
                 if(index) {
                     state.adminProjects[index]= action.payload
                 }
             })
+            builder.addCase(deleteProjecImage.fulfilled,(state,action)=>{
+                
+                const index= state.adminProjects.findIndex(id=> id._id=== action.payload._id)
+                console.log(index);
+
+                if(index!==-1){
+                    state.adminProjects[index]= action.payload
+                }
+            })
+
+            builder.addCase(deleteProject.fulfilled , (state,action)=>{
+                const index= state.adminProjects.findIndex(id=> id._id=== action.payload._id) 
+                console.log(index);
+                
+                // if(index!==-1){
+                //     state.adminProjects.filter(id=> id._id!== action.payload._id)
+                // }
+            })
+
+         
 
     }
     
