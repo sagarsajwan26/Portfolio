@@ -5,7 +5,9 @@ import { logger } from "../utils/logger.js";
 import {  } from "../utils/validator.js";
 import {Portfolio} from '../models/portfolio.model.js'
 import { deleteFromCloudinary, uploadToCloudinary } from "../utils/cloudinary.js";
-
+import {Skill} from '../models/skill.models.js'
+import { Project } from "../models/project.model.js";
+import {Contact} from '../models/contact.model.js'
 export const addPorfolioData= asyncHandler(async(req,res)=>{
     
     
@@ -63,9 +65,30 @@ if(!portfolio) throw new ApiError(500,'error while creating portfolio')
 
 
 export const getPortfolioData= asyncHandler(async(req,res)=>{
-    const portfolio= await Portfolio.find().lean()
+    const portfolio= await Portfolio.find().populate("owner" ,'contactInfo profileImage firstName lastName email').lean()
+   
+    
+    const skills= await Skill.aggregate([{
+        $group:{
+            _id:"$category",
+           
+        }
+    }])
+  const projects= await Project.aggregate([{
+    $group:{
+        _id:"$screenshots"
+    }
+  }])
+  
+  
+  const highlightsProject= await Project.find().sort({createdAt:-1}).limit(3).lean()
 
-    return res.status(200).json(new ApiResponse(200,'portfolio data fetched',portfolio[0] || {}))
+    return res.status(200).json(new ApiResponse(200,'portfolio data fetched',{
+        portfolio:portfolio[0] || {},
+        skills,
+        projects,
+        highlightsProject
+    }))
 })
 
 export const updatePortfolioData= asyncHandler(async(req,res)=>{
@@ -86,7 +109,7 @@ export const updatePortfolioData= asyncHandler(async(req,res)=>{
 export const updatePortfolioArrayImages= asyncHandler(async(req,res)=>{
     const {id, public_id} =req.params 
     const image= req.file
-    console.log(image);
+ 
     
     const uploadImage= await uploadToCloudinary(image.buffer)
     if(!uploadImage) throw new ApiError(500,'image upload failed')

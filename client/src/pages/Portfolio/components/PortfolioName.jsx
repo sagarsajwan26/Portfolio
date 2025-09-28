@@ -4,7 +4,13 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/all';
 import logo from '../../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Loading from '../../../Components/loading/Loading';
 const PortfolioName = () => {
+  const { data } = useSelector(state=> state.portfolio)
+ console.log(data);
+ 
+  
   const navigate = useNavigate()
   const [countClick, setCountClick] = useState(0)
 
@@ -53,7 +59,7 @@ useGSAP(()=>{
 })
 
 
-
+if(!data) return <Loading />
 
   return (
     <div 
@@ -80,13 +86,13 @@ useGSAP(()=>{
             <img 
              ref={imageRef}
        
-            className='h-full w-full rounded-2xl object-cover opacity-70 rotate-12' src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            className='h-full w-full rounded-2xl object-cover opacity-70 rotate-12' src={data?.portfolio?.owner.profileImage} alt="" />
           </span>
 <div className='h-full w-full flex items-center justify-between flex-col gap-8 md:gap-0'>
   
           <h1  
           ref={nameRef}
-          className='text-4xl md:text-6xl lg:text-8xl font-semibold font-[Besley] text-[#424040] text-center' >Sagar Sajwan</h1>
+          className='text-4xl md:text-6xl lg:text-7xl font-semibold font-[Besley] text-[#424040] text-center uppercase' >{data?.portfolio?.owner?.firstName}  {data?.owner?.lastName} </h1>
 
         <div className='w-full flex flex-col items-center justify-center text-center'>
           

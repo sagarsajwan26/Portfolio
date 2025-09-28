@@ -11,7 +11,11 @@ const PortfolioContactPage = lazy(() => import('./components/PortfolioContactPag
 const PortfolioOtherProject = lazy(() => import('./components/Project/PortfolioOtherProject'))
 
 import  gsap from 'gsap'
+import Loading from '../../Components/loading/Loading'
+import { useDispatch } from 'react-redux'
+import { getPortfolioDetails } from '../../store/portfolio/portfolioThunk'
 const PortfolioLayout = () => {
+  const dispatch = useDispatch()
 const movingBall=useRef()
   const handleMouseMove= (e)=>{
     const x= e.clientX 
@@ -55,6 +59,10 @@ const movingBall=useRef()
       window.removeEventListener('scroll', handleScroll)
     }
   },[])
+
+  useEffect(()=>{
+    dispatch(getPortfolioDetails())
+  },[])
   return (
     <div 
    
@@ -66,7 +74,7 @@ const movingBall=useRef()
      
           <Suspense fallback={
             <div className='min-h-screen w-full flex items-center justify-center' >
-              <h1 className='text-4xl' >Loading...</h1>
+              <Loading />
             </div>
           } >
       <PortfolioName />

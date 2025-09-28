@@ -7,51 +7,50 @@ const PortfolioWorkExperience = () => {
   const headingRef= useRef()
   const jobTypeRef= useRef()
   const imageRef= useRef()
+  const containerRef= useRef()
   gsap.registerPlugin(ScrollTrigger)
+  
   useGSAP(()=>{
-    const tl= gsap.timeline()
-    gsap.from(headingRef.current,{
-      opacity:0,
-      y:100,
-      duration:2,
-   
-      scrollTrigger:{
-        trigger:headingRef.current,
-      
-        scrub:true,
-        start:"top 60%",
-        end:"top 20%" ,
-        
+    // Animate heading
+    gsap.from(headingRef.current, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: headingRef.current,
+        start: "top 80%",
+        scrub:true
       }
     })
-    tl.from('.bounce',{
-      opacity:0,
-      x:200,
-      stagger:0.8,
-      scrollTrigger:{
-          trigger:'.bounce',
-        
-        scrub:true,
-        start:"top 90%",
-        end:"top 50%" ,
-        
-        
+    
+    // Animate bounce elements
+    gsap.from('.bounce', {
+      opacity: 0,
+      x: 30,
+      duration: 0.6,
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: '.bounce',
+        start: "top 85%",
+        scrub:true
       }
     })
-    gsap.from(imageRef.current,{
-      scale:0,
-      scrollTrigger:{
-        trigger:imageRef.current,
-        scrub:true,
-        start:"top 80%",
-        end :"top 60%"
+    
+    // Animate image
+    gsap.from(imageRef.current, {
+      opacity: 0,
+      scale: 0.8,
+      duration: 1,
+      scrollTrigger: {
+        trigger: imageRef.current,
+        start: "top 85%",
+        scrub:true
       }
     })
-
-  },[])
+  }, [])
   return (
-    <div className='min-h-screen px-4 md:px-[10vw] my-10 md:my-[10vh] flex flex-col items-center md:items-start justify-center gap-8 md:gap-[8vw] relative'>
-      <span className='absolute left-[50%] bottom-4 md:top-[90%] opacity-[40%]' >
+    <div ref={containerRef} className='min-h-screen px-4 md:px-[10vw] my-10 md:my-[10vh] flex flex-col items-center md:items-start justify-center gap-8 md:gap-[8vw] relative'>
+      <span className='absolute left-[50%] bottom-4 md:top-[90%] opacity-[40%] ' >
         <svg
   fill="#000000"
   width="20px"

@@ -1,5 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit"
+import { getPortfolioDetails } from "./portfolioThunk"
 
 const initialState={
     data:{}
@@ -12,6 +13,12 @@ const portfolioSlice= createSlice({
     reducers:{
        
     },
+    extraReducers:(builder)=>{
+        builder.addCase(getPortfolioDetails.fulfilled,(state,action)=>{
+            state.data= action.payload
+        })
+        
+    }
    
 })
 

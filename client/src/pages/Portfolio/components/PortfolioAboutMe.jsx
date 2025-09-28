@@ -2,10 +2,11 @@ import React, { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/all'
-
+import { useSelector } from 'react-redux'
+import Loading from '../../../Components/loading/Loading'
 
 const PortfolioAboutMe = () => {
-
+const {data} = useSelector(state=> state.portfolio)
     const aboutMeHeading= useRef()
 
     const aboutMe= useRef()
@@ -34,7 +35,7 @@ gsap.registerPlugin(ScrollTrigger)
       scrollTrigger: {
         trigger: aboutMe.current,
         start: "top 90%",
-        end: "top 50%",
+        end: "top 60%",
         
         scrub: 1
       }
@@ -66,7 +67,7 @@ gsap.registerPlugin(ScrollTrigger)
       }
     })
   },[])
-
+if(!data) return <Loading />
   return (
     <div 
    
@@ -79,17 +80,17 @@ gsap.registerPlugin(ScrollTrigger)
           <div className='w-48 md:w-[20vw] h-48 md:h-auto'>
             <img  
             ref={image1}
-            className='h-full w-full rounded-2xl object-cover opacity-70 ' src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?q=80&w=1044&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            className='h-full w-full rounded-2xl object-cover opacity-70 ' src={data?.portfolio?.aboutImages[0]?.url|| data?.portfolio?.aboutImages[1]?.url } alt="" />
           </div>
         </div>  
 
      <div className='flex flex-col md:flex-row items-center justify-between w-full md:w-[60vw] md:ml-[20vw] gap-6 md:gap-0' >
-          <p ref={aboutMe} className='w-full md:w-[50%] text-center md:text-left text-sm md:text-base'> I am a digital nomad currently based in Hong Kong. I've been working in graphic design for the past ten years. It was only in the past three that I decided to focus full-time on illustrating. </p> 
+          <p ref={aboutMe} className='w-full md:w-[50%] text-center md:text-left text-sm md:text-base text-[#000000b6]'>{data?.portfolio?.aboutMe} </p> 
 
           <div className='w-32 md:w-[15vw] h-32 md:h-auto -rotate-12 md:-rotate-20' >
             <img  
             ref={image2}
-            className='h-full w-full rounded-md object-cover opacity-70 ' src="https://images.unsplash.com/photo-1506863530036-1efeddceb993?q=80&w=1044&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+            className='h-full w-full rounded-md object-cover opacity-70 ' src={data?.portfolio?.aboutImages[1]?.url|| data?.portfolio?.aboutImages[0]?.url } alt="" />
           </div>
         </div>  
       <span className='absolute bottom-4 md:top-[90%] opacity-[40%]' >
