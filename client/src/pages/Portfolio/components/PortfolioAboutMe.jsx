@@ -16,57 +16,39 @@ const {data} = useSelector(state=> state.portfolio)
 gsap.registerPlugin(ScrollTrigger)
 
   useGSAP(()=>{
+    if (!aboutMeHeading.current || !aboutMe.current || !image1.current || !image2.current) return
+    
     gsap.from(aboutMeHeading.current,{
       opacity:0,
-      y: 100,
+      y: 50,
       duration: 1,
       scrollTrigger: {
         trigger: aboutMeHeading.current,
-        start: "top 60%",
-        end: "top 20%",
-       
-        scrub: 1
+        start: "top 80%"
       }
     })
+    
     gsap.from(aboutMe.current,{
       opacity:0,
-      y: 50,
-      duration: 1,
+      y: 30,
+      duration: 0.8,
       scrollTrigger: {
         trigger: aboutMe.current,
-        start: "top 90%",
-        end: "top 60%",
-        
-        scrub: 1
+        start: "top 85%"
       }
     })
 
-    gsap.from(image1.current,{
+    gsap.from([image1.current, image2.current],{
       opacity:0,
-      y: 50,
-      duration: 1,
+      y: 30,
+      duration: 0.8,
+      stagger: 0.2,
       scrollTrigger: {
         trigger: image1.current,
-        start: "top 90%",
-        end: "top 50%",
-
-        scrub: 1
+        start: "top 85%"
       }
     })
-
-    gsap.from(image2.current,{
-      opacity:0,
-      y: 50,
-      duration: 1,
-      scrollTrigger: {
-        trigger: image2.current,
-        start: "top 90%",
-        end: "top 50%",
-
-        scrub: 1
-      }
-    })
-  },[])
+  },[data])
 if(!data) return <Loading />
   return (
     <div 

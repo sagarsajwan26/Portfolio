@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import Button from '../input/Button'
 import { FaGithub } from "react-icons/fa"
 import { useNavigate } from 'react-router-dom'
@@ -7,8 +7,13 @@ import { FaEdit } from "react-icons/fa"
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteProject } from '../../store/projects/projectThunk'
 import { toast } from 'react-toastify'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/all'
 
 const ProjectCard = ({ project }) => {
+  
+
   const { isAuthenticated } = useSelector(state => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -49,8 +54,10 @@ const ProjectCard = ({ project }) => {
       <div className='w-full'>
       
       <div className='h-[30vh] relative group' >
-          <img
-          onClick={() => navigate(`/sagarsajwan/projects/${project.projectTitle}`)}
+          <img 
+
+       
+          onClick={() => navigate(`/sagarsajwan/projects/${project._id}`)}
           className= ' group-hover:blur-md h-full w-full object-cover cursor-pointer absolute transition-all ease-in-out duration-300 '
           src={project.screenshots?.[0]?.url || ''}
           alt={project.projectTitle}

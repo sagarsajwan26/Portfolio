@@ -1,10 +1,40 @@
-import React from 'react'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/all'
+import React, { useEffect, useRef } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../../../Components/loading/Loading'
+import ProjectHighLigtCard from '../../../../Components/Card/ProjectHighLigtCard'
 
 const PortfolioProjects = () => {
+  const containerRef= useRef()
+  const imageRef=useRef()
+  const titleRef= useRef()
+  const descriptionRef= useRef()
+const {data} = useSelector(state=> state.portfolio)
+  
+gsap.registerPlugin(ScrollTrigger)
+useGSAP(()=>{
+  if (!containerRef.current) return
+  
+  gsap.from('.heading',{
+    y:50,
+    opacity:0,
+    duration:1,
+    scrollTrigger:{
+      trigger:containerRef.current,
+      start:"top 70%"
+    }
+  })
+},[data])
+if(!data) return <Loading />
+
   const navigate= useNavigate()
   return (
-  <div className='h-screen my-[10vw] px-[10vw]  py-[10vw] relative' > 
+  <div 
+  ref={containerRef}
+  className='h-screen my-[10vw] px-[10vw]  py-[10vw] relative' > 
   <span className='absolute left-[50%] top-[110%] opacity-[40%]' >
         <svg
   fill="#000000"
@@ -39,21 +69,15 @@ const PortfolioProjects = () => {
     />
   </svg>
 </button>
-        <h1 className='text-7xl text-center uppercase mb-[5vw] tracking-tight font-[Urbanist] font-semibold ' >Portfolio Highlights</h1>
+
+   <div className='block overflow-hidden h-[10vh] mb-[3vh]' >
+          <h1 className='   heading text-7xl text-center uppercase mb-[5vw] tracking-tight font-[Urbanist] font-semibold overflow-y-hidden ' >Portfolio Highlights</h1>
+   </div>
+
 
      <div className='grid grid-cols-3 gap-[3vw]  h-full' >
-         {[1,2,3].map((item,idx)=>(
-          <div className={` flex flex-col items-center ${idx===1 ? "justify-end": null}`} >
-
-             <div className='mb-4' >
-               <img className='h-full w-full object-cover'  src="https://imgs.search.brave.com/czbTygfudg5Qy_vKsoEypDA72vUVDH1SZibfyViyzJ0/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9kMXpy/dWY5ZGI2MnA4cy5j/bG91ZGZyb250Lm5l/dC8yMDI1LzA4L1do/YXQtSXMtRWNvbW1l/cmNlLUEtQ29tcHJl/aGVuc2l2ZS1HdWlk/ZS03Njh4NDA0Lndl/YnA" alt="" />
-             </div>
-             <div> 
-               <h1 className='text-xl mb-2 font-[Urbanist] font-semibold ' >Ecommerce Platform</h1>
-               <p className='text-md font-[Urbanist] leading-[1.2]' > Lorem, ipsum dolor sit amet consectetur adipisicing elit. Saepe dolorem deleniti quod sequi assumenda sed animi eligendi enim repellat quisquam.... </p>
-             </div>
-            
-          </div>
+         {data?.highlightsProject?.map((project,idx)=>(
+          <ProjectHighLigtCard key={idx} project={project} idx={idx} />
         ))}
      </div>
   </div>

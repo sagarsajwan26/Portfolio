@@ -8,7 +8,11 @@ import { useNavigate } from 'react-router-dom';
 import { deleteSkillData } from '../../store/skills/skillThunk';
 
 const SkillCard = ({skill}) => {
+  console.log(skill);
+  
   const {isAuthenticated} = useSelector(state=> state.auth) 
+  console.log(isAuthenticated);
+  
   const [loading, setLoading] = useState(false)
   const navigate= useNavigate()
   const dispatch = useDispatch()
@@ -37,7 +41,9 @@ const SkillCard = ({skill}) => {
 
                 <p className='text-md font-medium px-2 pt-3 ' >{ skill?.description|| skill?.about}</p>
                 </div>
-                <div className='flex flex-col gap-2' >
+                {
+                  isAuthenticated && (
+                    <div className='flex flex-col gap-2' >
                  <Button label='Edit' className='w-full rounded-full hover:bg-black hover:text-white flex items-center justify-between transition-all ease-in-out duration-300  gap-5 ' icon={ <FiEdit /> } onClick={()=> navigate(`/admin/homepage/skills/${skill._id}`)}  />
                  <Button 
                  disabled={loading}
@@ -45,6 +51,8 @@ const SkillCard = ({skill}) => {
                 
                  onClick={()=> handleDelete({id:skill._id, public_id:skill.public_id})}  className='w-full rounded-full hover:bg-black hover:text-white flex items-center justify-between gap-5  transition-all ease-in-out duration-300 ' icon={<MdDelete />} />
                 </div>
+                  )
+                }
 
             </div>
   )

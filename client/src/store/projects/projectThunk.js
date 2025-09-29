@@ -119,3 +119,15 @@ export const deleteProject= createAsyncThunk('/admin/project/delete',async(proje
         return rejectWithValue(error.response.data)
     }
 })
+export const fetchProjectsForUser= createAsyncThunk('/user/allProjects',async(_,{rejectWithValue})=>{
+    try {
+        console.log('fetchProjectsForUser called');
+        const res= await apiService.getProjectsForUser()
+        console.log('API response:', res.data.data);
+        
+        return res.data.data
+    } catch (error) {
+        console.log('fetchProjectsForUser error:', error);
+        return rejectWithValue(error.response?.data || error.message)
+    }
+})

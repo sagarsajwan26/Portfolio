@@ -324,6 +324,8 @@ export const getProjects = asyncHandler(async (req, res) => {
 export const getProjectsForuser = asyncHandler(async (req, res) => {
   const limit = parseInt(req.query.limit) || 10
   const skip = parseInt(req.query.skip) || 0
+ 
+  
   
   const projects = await Project.find({ isActive: true })
     .limit(limit)

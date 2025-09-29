@@ -11,40 +11,36 @@ const PortfolioWorkExperience = () => {
   gsap.registerPlugin(ScrollTrigger)
   
   useGSAP(()=>{
-    // Animate heading
+    if (!headingRef.current || !imageRef.current) return
+    
     gsap.from(headingRef.current, {
       opacity: 0,
       y: 50,
       duration: 1,
       scrollTrigger: {
         trigger: headingRef.current,
-        start: "top 80%",
-        scrub:true
+        start: "top 80%"
       }
     })
     
-    // Animate bounce elements
     gsap.from('.bounce', {
       opacity: 0,
       x: 30,
       duration: 0.6,
       stagger: 0.1,
       scrollTrigger: {
-        trigger: '.bounce',
-        start: "top 85%",
-        scrub:true
+        trigger: containerRef.current,
+        start: "top 85%"
       }
     })
     
-    // Animate image
     gsap.from(imageRef.current, {
       opacity: 0,
       scale: 0.8,
       duration: 1,
       scrollTrigger: {
         trigger: imageRef.current,
-        start: "top 85%",
-        scrub:true
+        start: "top 85%"
       }
     })
   }, [])

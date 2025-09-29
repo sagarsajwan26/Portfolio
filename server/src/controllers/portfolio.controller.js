@@ -65,7 +65,7 @@ if(!portfolio) throw new ApiError(500,'error while creating portfolio')
 
 
 export const getPortfolioData= asyncHandler(async(req,res)=>{
-    const portfolio= await Portfolio.find().populate("owner" ,'contactInfo profileImage firstName lastName email').lean()
+    const portfolio= await Portfolio.find().populate("owner" ,'contactInfo profileImage firstName lastName email socialLinks').lean()
    
     
     const skills= await Skill.aggregate([{

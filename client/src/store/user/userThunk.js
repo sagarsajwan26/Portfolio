@@ -77,3 +77,15 @@ export const deleteUserWorkExperience= createAsyncThunk('/user/deleteExperience'
         return rejectWithValue(error.response.data)
     }
 })
+
+
+export const updateUserProfilePic= createAsyncThunk('/user/updateprofilePic',async(data,{rejectWithValue})=>{
+    try {
+        const res= await apiService.updateProfilePic(data)
+        console.log(data);
+        
+        return res.data.data
+    } catch (error) {
+        return rejectWithValue(error.response.data)
+    }
+})

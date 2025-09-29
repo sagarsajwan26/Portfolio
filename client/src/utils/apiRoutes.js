@@ -83,7 +83,10 @@ export const apiService = {
   deleteProjectImage: (projectId, imageId, publicId) => axiosInstance.delete(API_ROUTES.PROJECT.DELETE_IMAGE(projectId, imageId, publicId)),
   addScreenshot: (projectId, formData) => axiosInstance.post(API_ROUTES.PROJECT.ADD_SCREENSHOT(projectId), formData),
   deleteProject: (projectId) => axiosInstance.delete(API_ROUTES.PROJECT.DELETE(projectId)),
-  getProjectsForUser:()=> axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_USER) ,
+  getProjectsForUser:()=> {
+    console.log('Making API call to:', API_ROUTES.PROJECT.GET_PROJECT_FOR_USER());
+    return axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_USER())
+  },
   getProjectsForAdmin:(limit,skip)=> axiosInstance.get(API_ROUTES.PROJECT.GET_PROJECT_FOR_ADMIN(limit,skip)) ,
 
   // Skills

@@ -5,6 +5,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/all'
 import { useSelector } from 'react-redux'
+import Loading from '../../../Components/loading/Loading'
 
 const PortfolioSkillAndExpertiese = () => {
   const { data } = useSelector(state => state.portfolio)
@@ -20,43 +21,42 @@ const PortfolioSkillAndExpertiese = () => {
   gsap.registerPlugin(ScrollTrigger)
 
   useGSAP(() => {
+    if (!headingRef.current || !skillsRef.current || !imageRef.current) return
    
     gsap.from(headingRef.current, {
       opacity: 0,
-      x: -100,
+      x: -50,
+      duration: 1,
       scrollTrigger: {
         trigger: headingRef.current,
-        start: 'top 80%',
-        end: 'top 50%',
-        scrub: true,
-      },
+        start: 'top 80%'
+      }
     })
 
-    
     gsap.from(itemsRef.current, {
       opacity: 0,
-      x: 200,
-      stagger: 0.3,
+      y: 30,
+      duration: 0.6,
+      stagger: 0.1,
       scrollTrigger: {
         trigger: skillsRef.current,
-        start: 'top 80%',
-        end: 'top 20%',
-        scrub: true,
-      },
+        start: 'top 85%'
+      }
     })
 
-    // Animate image
     gsap.from(imageRef.current, {
       opacity: 0,
-      scale: 1.5,
+      scale: 0.8,
+      duration: 1,
       scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 20%',
-        end: 'top -10%',
-        scrub: true,
-      },
+        trigger: imageRef.current,
+        start: 'top 85%'
+      }
     })
-  }, [])
+  }, [data])
+
+
+  if(!data) return <Loading />
 
   return (
     <div
@@ -120,7 +120,7 @@ const PortfolioSkillAndExpertiese = () => {
        
         {(() => {
           itemsRef.current = []
-          return data.skills.map((item, idx) => (
+          return data?.skills?.map((item, idx) => (
             <li
               key={idx}
               ref={(el) => (itemsRef.current[idx] = el)}

@@ -1,6 +1,6 @@
 
 import { createSlice } from "@reduxjs/toolkit"
-import { addUserWorkExperience, deleteUserWorkExperience, getuserDetails, udpateUserWorkExperience, updateUserContactInfo, updateUserDetails, updateUserSocialInfo } from "./userThunk"
+import { addUserWorkExperience, deleteUserWorkExperience, getuserDetails, udpateUserWorkExperience, updateUserContactInfo, updateUserDetails, updateUserProfilePic, updateUserSocialInfo } from "./userThunk"
 
 const initialState={
     user:null
@@ -38,10 +38,12 @@ const userSlice= createSlice({
     builder.addCase(updateUserContactInfo.fulfilled, (state, action)=>{
         state.user= {...action.payload}
     })
-    builder.addCase(updateUserSocialInfo.rejected, (state, action)=>{
-        console.log(action.payload);
+    builder.addCase(updateUserSocialInfo.fulfilled, (state, action)=>{
+        state.user= {...action.payload}
     })
-
+    builder.addCase(updateUserProfilePic.fulfilled,(state,action)=>{
+        state.user= action.payload
+    })
 
    }
 })

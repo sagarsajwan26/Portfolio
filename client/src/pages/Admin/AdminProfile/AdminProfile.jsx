@@ -4,21 +4,44 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoIosCamera } from "react-icons/io";
 import {useDispatch, useSelector} from 'react-redux'
 import {Link, Outlet, useLocation, useNavigate} from 'react-router-dom'
-import { getuserDetails } from '../../../store/user/userThunk';
+import { getuserDetails, updateUserProfilePic } from '../../../store/user/userThunk';
 import {PROFESSIONAL_TYPES} from '../../../utils/data'
 import Loading from '../../../Components/loading/Loading';
+import { toast } from 'react-toastify';
 const AdminProfile = () => {
  
   const {user} = useSelector(state=> state.user)
   const dispatch= useDispatch()
   const navigate= useNavigate()
-  console.log(user);
+  const [image, setImage] = useState()
+ 
   const location= useLocation()
 
 
 useEffect(()=>{
   dispatch(getuserDetails())
 },[])
+
+const handleChange = async e=>{
+
+const file= e.target.files[0]
+setImage(URL.createObjectURL(file))
+
+
+
+const form = new FormData()
+form.append('profilePic',file)
+
+await dispatch(updateUserProfilePic(form)).then(res=>{
+  console.log(res);
+  if(res.meta.requestStatus=="fulfilled"){
+    toast.success("Profile pic updated successfully")
+  }else{
+    toast.error('Internal server error while uploading profile pic')
+  }
+  
+})
+}
 
 if(!user) return < Loading /> 
   return (
@@ -36,10 +59,10 @@ if(!user) return < Loading />
         <div className='grid grid-cols-5 mt-[5vh] ' >
             <div className='col-span-1' >
              <div  className= ' h-24 w-24 relative ' >
-              <img className='h-24 w-24 object-cover  rounded-full  ' src="https://plus.unsplash.com/premium_photo-1671656349322-41de944d259b?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8cG9ydHJhaXR8ZW58MHx8MHx8fDA%3D" alt="" />
+              <img className='h-24 w-24 object-cover  rounded-full  ' src={image || user?.profileImage } alt="" />
              
                   <label className='h-10 w-10  z-99 absolute -right-3  flex items-center justify-center rounded-full top-14 text-2xl'><IoIosCamera /> 
-                    <input hidden type="file" name="" id="" />
+                    <input onChange={handleChange} hidden type="file" name="" id="" />
                    </label>
                 
              </div>

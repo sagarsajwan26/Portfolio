@@ -1,14 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useGSAP } from "@gsap/react";
 import gsap from 'gsap';
-import { SplitText } from 'gsap/all';
 import logo from '../../../assets/logo.png'
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Loading from '../../../Components/loading/Loading';
 const PortfolioName = () => {
   const { data } = useSelector(state=> state.portfolio)
- console.log(data);
+
  
   
   const navigate = useNavigate()
@@ -34,29 +33,23 @@ gsap.to(imageRef.current,{
 })
   
 }
-gsap.registerPlugin(SplitText)
 useGSAP(()=>{
-  document.fonts.ready.then(() => {
-    const text= new SplitText(nameRef.current,{type:'words, chars'})
-    const portfoiotext= new SplitText(portfolioRef.current, {type:'words, chars'})
-
-  gsap.from(text.chars,{
-     duration:1,
-    x:500,
-    autoAlpha:0,
-    stagger:0.2,
-    delay:0.04
+  if (!nameRef.current || !portfolioRef.current) return
+  
+  gsap.from(nameRef.current,{
+    duration:1,
+    x:100,
+    opacity:0,
+    delay:0.2
   })
 
-    gsap.from(portfoiotext.chars,{
-      duration:1,
-      x:-500,
-      autoAlpha:0,
-      stagger:0.2,
-      delay:0.04
-    })
+  gsap.from(portfolioRef.current,{
+    duration:1,
+    x:-100,
+    opacity:0,
+    delay:0.4
   })
-})
+}, [data])
 
 
 if(!data) return <Loading />
@@ -92,7 +85,7 @@ if(!data) return <Loading />
   
           <h1  
           ref={nameRef}
-          className='text-4xl md:text-6xl lg:text-7xl font-semibold font-[Besley] text-[#424040] text-center uppercase' >{data?.portfolio?.owner?.firstName}  {data?.owner?.lastName} </h1>
+          className='text-4xl md:text-6xl lg:text-7xl font-semibold font-[Besley] text-[#424040] text-center uppercase' >{data?.portfolio?.owner?.firstName}  {data?.portfolio?.owner?.lastName} </h1>
 
         <div className='w-full flex flex-col items-center justify-center text-center'>
           

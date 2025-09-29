@@ -46,6 +46,8 @@ export const updateUserData= asyncHandler(async(req,res)=>{
 
 export const updateUserProfilePic= asyncHandler(async(req,res)=>{
     const profilePic = req.file 
+    
+    
     if(!profilePic){
         throw new ApiError(400, 'Profile pic is required')
     }

@@ -1,10 +1,59 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import Loading from '../../../../Components/loading/Loading'
+import { useGSAP } from '@gsap/react'
+import gsap from 'gsap'
+import { ScrollTrigger, SplitText } from 'gsap/all'
+import SIngleImage from './SIngleImage'
 
 const PortfolioOtherProject = () => {
   const navigate= useNavigate()
+  const headingRef= useRef()
+  const descRef = useRef()
+  const containerRef= useRef()
+  const {data} = useSelector(state=> state.portfolio)
+  gsap.registerPlugin(ScrollTrigger, SplitText)
+  useGSAP(()=>{
+    const tl= gsap.timeline({
+      scrollTrigger:{
+        trigger:containerRef.current,
+        start:"top 50%",
+        end:"top 5%",
+        scrub:true ,
+        
+      }
+
+    })
+
+    tl.from(headingRef.current,{
+      scale:0,
+      opacity:0,
+      duration:2
+    })
+
+    const splitText= new SplitText(descRef.current,{type:'words'})
+      tl.from(splitText.words,{
+          opacity:0,
+          y:100,
+          stagger:.2,
+          duration:2
+      })
+
+     
+
+
+  },[])
+  
+  
+
+
+  if(!data)return <Loading />
+
   return (
-    <div className='my-[10vw] py-[10vh] px-[10vw] h-screen font-[Urbanist] relative' >
+    <div 
+    ref={containerRef}
+    className='my-[10vw] py-[10vh] px-[10vw] h-screen font-[Urbanist] relative' >
        <span className='absolute left-[50%] top-[90%] opacity-[40%]' >
         <svg
   fill="#000000"
@@ -21,11 +70,14 @@ const PortfolioOtherProject = () => {
 </span>
       <div className='grid grid-cols-3 gap-[2vw] mb-[10vw] ' >
         <div className='col-span-1'> 
-          <h1 className='uppercase text-7xl font-semibold  ' >  other 
+          <h1 ref={headingRef} className='uppercase text-7xl font-semibold  ' >  other 
             <br />
              project</h1>
            </div>
-        <div className='col-span-1'> <p className='text-xl leading-[0.9]' >A sample of posters and cards conceptualized, designed, and created by me</p> </div>
+        <div   
+        
+        ref={descRef}
+        className='col-span-1 '> <p className='  block overflow-hidden text-xl leading-[0.9]  ' >A sample of posters and cards conceptualized, designed, and created by me</p> </div>
         <div className='col-span-1'>  </div>
 
       </div>
@@ -52,15 +104,15 @@ const PortfolioOtherProject = () => {
 
       </div>
       <div className='col-span-2 grid grid-cols-4 rounded-md overflow-hidden ' > 
-        {[1,2,3,4,5,6,7,8].map((item,idx)=>(
-          <img key={idx} className='h-full w-full  object-cover col-span-1 ' src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+        {data?.projects?.slice(0,8).map((item,idx)=>(
+          <SIngleImage key={idx} item={item} idx={idx} />
         ))}
 
       </div>
       <div className='col-span-1 grid grid-cols-2 -rotate-12 relative bottom-[2vw] rounded-md overflow-hidden' >
 
-          {[1,2,3,4].map((item,idx)=>(
-            <img className='h-full w-full object-cover col-span-1 ' src="https://images.unsplash.com/photo-1471107340929-a87cd0f5b5f3?q=80&w=1073&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" />
+          {data?.projects?.slice(8,12).map((item,idx)=>(
+           <SIngleImage key={idx} item={item} idx={idx} />
           ))}  
 
       </div>

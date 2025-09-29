@@ -1,12 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import projectsList from '../../../../utils/project.json'
 import Button from '../../../../Components/input/Button'
 import Input from '../../../../Components/input/Input'
 import ProjectCard from '../../../../Components/Card/ProjectCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProjectsForUser } from '../../../../store/projects/projectThunk'
+import Loading from '../../../../Components/loading/Loading'
 const PortfolioProjectsList = () => {
   const navigate= useNavigate()
-  const [project, setProject] = useState(projectsList)
+  const [searchProject, setSearchProject] = useState('')
+  const [project, setProject] = useState()
+  const {userProjects} = useSelector(state=> state.project)
+  
+  const handleSearch = (e) => {
+    setSearchProject(e.target.value)
+  }
+  const dispatch= useDispatch()  
+  useEffect(()=>{
+      console.log('Dispatching fetchProjectsForUser');
+      dispatch(fetchProjectsForUser()) 
+        
+    },[])
+
+
+    if(!userProjects){
+        return <Loading />
+    }
+    const filteredProjects = userProjects.filter(item => {
+      if (!searchProject) return true
+      return (
+        item?.projectTitle?.toLowerCase().includes(searchProject.toLowerCase()) ||
+        item?.description?.toLowerCase().includes(searchProject.toLowerCase()) ||
+        item?.technologies?.some(tech => tech.toLowerCase().includes(searchProject.toLowerCase()))
+      )
+    })
+    
+
+
+
 
   
     return (
@@ -38,17 +70,19 @@ const PortfolioProjectsList = () => {
           
       </div >
         <div className='flex  h-[5vh] gap-3  my-10 w-[50%] mx-auto ' >
-         <Input
+         <Input 
+         value={searchProject}
+         onChange={(e)=> handleSearch(e)}
   placeholder="Search"
   className="w-full border border-black rounded-2xl py-2 px-5"
 />
 
           <Button label='Search' className='border-1 border-black hover:text-white hover:bg-black rounded-full  w-[20%] ' />
         </div>
-        <div className=' grid grid-cols-3 gap-[3vw] px-[5vw]' >
+        <div className=' grid  grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[3vw] px-[5vw]' >
           {
-            projectsList.map((item,idx)=>(
-                <ProjectCard project={item} />
+            filteredProjects?.map((item,idx)=>(
+                <ProjectCard key={idx} project={item} />
             ))
           }
 
