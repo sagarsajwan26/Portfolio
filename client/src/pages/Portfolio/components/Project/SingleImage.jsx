@@ -2,7 +2,7 @@ import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import React, { useRef } from 'react'
 
-const SIngleImage = ({idx, item}) => {
+const SingleImage = ({idx, item}) => {
    
     
     const imageRef= useRef()
@@ -20,4 +20,4 @@ const SIngleImage = ({idx, item}) => {
   )
 }
 
-export default SIngleImage
+export default SingleImage

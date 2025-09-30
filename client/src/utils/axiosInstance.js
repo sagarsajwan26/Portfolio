@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const axiosInstance= axios.create({
-    baseURL:'https://portfolio-2-5ta4.onrender.com/api/v1',
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1',
     withCredentials:true,
     
 })
