@@ -14,7 +14,7 @@ import  gsap from 'gsap'
 import Loading from '../../Components/loading/Loading'
 import { useDispatch } from 'react-redux'
 import { getPortfolioDetails } from '../../store/portfolio/portfolioThunk'
-import ApiTest from '../../components/ApiTest'
+import ApiTest from '../../Components/ApiTest'
 const PortfolioLayout = () => {
   const dispatch = useDispatch()
 const movingBall=useRef()
