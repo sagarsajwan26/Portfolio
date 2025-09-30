@@ -14,7 +14,7 @@ import  gsap from 'gsap'
 import Loading from '../../Components/loading/Loading'
 import { useDispatch } from 'react-redux'
 import { getPortfolioDetails } from '../../store/portfolio/portfolioThunk'
-import ApiTest from '../../Components/ApiTest'
+
 const PortfolioLayout = () => {
   const dispatch = useDispatch()
 const movingBall=useRef()
@@ -69,7 +69,7 @@ const movingBall=useRef()
    
     onMouseMove={(e)=>handleMouseMove(e)}
     className='relative' >  
-      <ApiTest />
+
       <div 
        ref={movingBall}
       className='fixed h-3 w-3 rounded-full bg-black z-[9999] pointer-events-none hidden md:block' />

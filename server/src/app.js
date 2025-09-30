@@ -16,16 +16,14 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ["https://portfolio-iy2i-git-main-sagarsajwan26s-projects.vercel.app"] 
-        : ["http://localhost:5173"],
+    origin: true,
     credentials: false,
     methods:["GET","POST","PUT","DELETE","OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"]
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 }))
 
-
-
+// Handle preflight requests
+app.options('*', cors())
 
 app.use('/api/v1/auth',authRoutes)
 app.use('/api/v1/user',userRoutes)
