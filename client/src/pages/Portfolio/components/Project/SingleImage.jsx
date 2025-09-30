@@ -16,7 +16,7 @@ const SingleImage = ({idx, item}) => {
         })
     },[])
   return (
-   <img ref={imageRef} key={idx} className='h-full w-full  object-cover col-span-1 ' src={item?._id[0].url} alt="" />
+   <img ref={imageRef} key={idx} className='h-full w-full  object-cover col-span-1 ' src={item?._id?.[0]?.url || 'https://via.placeholder.com/300x200'} alt="" />
   )
 }
 

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 import Loading from '../../../Components/loading/Loading'
 
 const PortfolioAboutMe = () => {
-const {data} = useSelector(state=> state.portfolio)
+const {data = {}} = useSelector(state=> state.portfolio)
     const aboutMeHeading= useRef()
 
     const aboutMe= useRef()
@@ -49,7 +49,7 @@ gsap.registerPlugin(ScrollTrigger)
       }
     })
   },[data])
-if(!data) return <Loading />
+if(!data || !data.portfolio) return <Loading />
   return (
     <div 
    
@@ -62,17 +62,17 @@ if(!data) return <Loading />
           <div className='w-48 md:w-[20vw] h-48 md:h-auto'>
             <img  
             ref={image1}
-            className='h-full w-full rounded-2xl object-cover opacity-70 ' src={data?.portfolio?.aboutImages[0]?.url|| data?.portfolio?.aboutImages[1]?.url } alt="" />
+            className='h-full w-full rounded-2xl object-cover opacity-70 ' src={data?.portfolio?.aboutImages?.[0]?.url || data?.portfolio?.aboutImages?.[1]?.url || 'https://via.placeholder.com/400x400'} alt="" />
           </div>
         </div>  
 
      <div className='flex flex-col md:flex-row items-center justify-between w-full md:w-[60vw] md:ml-[20vw] gap-6 md:gap-0' >
-          <p ref={aboutMe} className='w-full md:w-[50%] text-center md:text-left text-sm md:text-base text-[#000000b6]'>{data?.portfolio?.aboutMe} </p> 
+          <p ref={aboutMe} className='w-full md:w-[50%] text-center md:text-left text-sm md:text-base text-[#000000b6]'>{data?.portfolio?.aboutMe || 'About me content will appear here...'} </p> 
 
           <div className='w-32 md:w-[15vw] h-32 md:h-auto -rotate-12 md:-rotate-20' >
             <img  
             ref={image2}
-            className='h-full w-full rounded-md object-cover opacity-70 ' src={data?.portfolio?.aboutImages[1]?.url|| data?.portfolio?.aboutImages[0]?.url } alt="" />
+            className='h-full w-full rounded-md object-cover opacity-70 ' src={data?.portfolio?.aboutImages?.[1]?.url || data?.portfolio?.aboutImages?.[0]?.url || 'https://via.placeholder.com/300x300'} alt="" />
           </div>
         </div>  
       <span className='absolute bottom-4 md:top-[90%] opacity-[40%]' >

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Loading from '../../../Components/loading/Loading';
 const PortfolioName = () => {
-  const { data } = useSelector(state=> state.portfolio)
+  const { data = {} } = useSelector(state=> state.portfolio)
 
  
   
@@ -52,7 +52,7 @@ useGSAP(()=>{
 }, [data])
 
 
-if(!data) return <Loading />
+if(!data || !data.portfolio) return <Loading />
 
   return (
     <div 
@@ -85,7 +85,7 @@ if(!data) return <Loading />
   
           <h1  
           ref={nameRef}
-          className='text-4xl md:text-6xl lg:text-7xl font-semibold font-[Besley] text-[#424040] text-center uppercase' >{data?.portfolio?.owner?.firstName}  {data?.portfolio?.owner?.lastName} </h1>
+          className='text-4xl md:text-6xl lg:text-7xl font-semibold font-[Besley] text-[#424040] text-center uppercase' >{data?.portfolio?.owner?.firstName || 'Your'}  {data?.portfolio?.owner?.lastName || 'Name'} </h1>
 
         <div className='w-full flex flex-col items-center justify-center text-center'>
           

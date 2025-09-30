@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Loading from '../../../../Components/loading/Loading'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
-import { ScrollTrigger, SplitText } from 'gsap/all'
+import { ScrollTrigger } from 'gsap/all'
 import SingleImage from './SingleImage'
 
 const PortfolioOtherProject = () => {
@@ -12,18 +12,18 @@ const PortfolioOtherProject = () => {
   const headingRef= useRef()
   const descRef = useRef()
   const containerRef= useRef()
-  const {data} = useSelector(state=> state.portfolio)
-  gsap.registerPlugin(ScrollTrigger, SplitText)
+  const {data = {}} = useSelector(state=> state.portfolio)
+  gsap.registerPlugin(ScrollTrigger)
   useGSAP(()=>{
+    if (!headingRef.current || !descRef.current || !containerRef.current) return
+    
     const tl= gsap.timeline({
       scrollTrigger:{
         trigger:containerRef.current,
         start:"top 50%",
         end:"top 5%",
-        scrub:true ,
-        
+        scrub:1
       }
-
     })
 
     tl.from(headingRef.current,{
@@ -32,23 +32,17 @@ const PortfolioOtherProject = () => {
       duration:2
     })
 
-    const splitText= new SplitText(descRef.current,{type:'words'})
-      tl.from(splitText.words,{
-          opacity:0,
-          y:100,
-          stagger:.2,
-          duration:2
-      })
-
-     
-
-
-  },[])
+    tl.from(descRef.current,{
+      opacity:0,
+      y:50,
+      duration:1
+    })
+  },[data])
   
   
 
 
-  if(!data)return <Loading />
+  if(!data || !data.projects) return <Loading />
 
   return (
     <div 
@@ -104,16 +98,16 @@ const PortfolioOtherProject = () => {
 
       </div>
       <div className='col-span-2 grid grid-cols-4 rounded-md overflow-hidden ' > 
-        {data?.projects?.slice(0,8).map((item,idx)=>(
+        {data?.projects?.slice(0,8)?.map((item,idx)=>(
           <SingleImage key={idx} item={item} idx={idx} />
-        ))}
+        )) || []}
 
       </div>
       <div className='col-span-1 grid grid-cols-2 -rotate-12 relative bottom-[2vw] rounded-md overflow-hidden' >
 
-          {data?.projects?.slice(8,12).map((item,idx)=>(
+          {data?.projects?.slice(8,12)?.map((item,idx)=>(
            <SingleImage key={idx} item={item} idx={idx} />
-          ))}  
+          )) || []}  
 
       </div>
 
