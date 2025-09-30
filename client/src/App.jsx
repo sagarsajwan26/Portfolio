@@ -31,8 +31,7 @@ const App = () => {
     <div>
     <BrowserRouter>
     <Routes>
-      <Route path='/addingProjectTest' element={<ProjectAdding/>}/>
-      <Route path='/ProjectById' element={<ProjectById />}/>
+    
       
       
       
