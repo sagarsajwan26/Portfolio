@@ -9,11 +9,12 @@
     "build": "echo 'No build step required'"
   },
   "keywords": [],
-  "author": "",
+  "author": "Sagar Sajwan",
   "license": "ISC",
   "type": "module",
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

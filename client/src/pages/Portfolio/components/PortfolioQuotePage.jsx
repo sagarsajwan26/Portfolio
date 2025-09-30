@@ -1,7 +1,7 @@
 import { gsap } from 'gsap'
 import { useGSAP } from '@gsap/react'
 import React, { useRef } from 'react'
-import { ScrollTrigger, SplitText } from 'gsap/all'
+import { ScrollTrigger } from 'gsap/all'
 import {useSelector} from 'react-redux'
 const PortfolioQuotePage = () => {
   const quote1ref = useRef() 
@@ -10,69 +10,57 @@ const PortfolioQuotePage = () => {
   const quote3ref = useRef()
   const image1ref= useRef()
   const image2ref= useRef()
-  const {data} = useSelector(state=> state.portfolio)
+  const {data = {}} = useSelector(state=> state.portfolio)
 
   
-  gsap.registerPlugin(ScrollTrigger, SplitText)
+  gsap.registerPlugin(ScrollTrigger)
 
   useGSAP(() => {
+    if (!containerRef.current || !quote1ref.current || !quote2ref.current || !quote3ref.current) return
     
-
- const split= new SplitText(quote1ref.current,{type:'chars'})
- const split2= new SplitText(quote2ref.current,{type:'chars'})
-    const split3 = new SplitText(quote3ref.current,{type:'chars'})
     const tl = gsap.timeline({
       scrollTrigger:{
         trigger:containerRef.current,
-       
         start:'top 50%',
         end:'top 0%',
-        scrub:true
+        scrub:1
       }
     })
 
-   
-
-    if(quote1ref.current) {
-       tl.from(split.chars,{
+    tl.from(quote1ref.current,{
       opacity:0,
-           stagger:.2,
-        ease:'power2.inOut'
-      
+      y:50,
+      ease:'power2.inOut'
     })
-    }
-
-    if(quote2ref.current){
-        tl.from(split2.chars,{
-          opacity:0,
-            stagger:.2,
-          ease:'power1.inOut'
-        })
-    }
+    
+    tl.from(quote2ref.current,{
+      opacity:0,
+      y:30,
+      ease:'power1.inOut'
+    })
+    
     if(image1ref.current){
       tl.from(image1ref.current,{
         opacity:0,
-        scale:0 ,
+        scale:0,
         ease:'power1.inOut'
       })
     }
-  if(image2ref.current){
+    
+    if(image2ref.current){
       tl.from(image2ref.current,{
         opacity:0,
-        scale:0 ,
+        scale:0,
         ease:'power1.inOut'
       })
     }
-       if(quote3ref.current){
-        tl.from(split3.chars,{
-          opacity:0,
-            stagger:0.2,
-          ease:'power1.inOut'
-        })
-    }
     
-    
-  }, [])
+    tl.from(quote3ref.current,{
+      opacity:0,
+      y:30,
+      ease:'power1.inOut'
+    })
+  }, [data])
 
   
 
@@ -99,7 +87,7 @@ const PortfolioQuotePage = () => {
           <img
            ref={image1ref}
             className="h-full w-full object-cover"
-            src={data?.portfolio?.quoteImages[0].url ||data?.portfolio?.quoteImages[1].url  }
+            src={data?.portfolio?.quoteImages?.[0]?.url || data?.portfolio?.quoteImages?.[1]?.url || 'https://via.placeholder.com/300x200'}
             alt=""
           />
         </div>
@@ -110,7 +98,7 @@ const PortfolioQuotePage = () => {
           <img 
             ref={image2ref}
             className="h-full w-full object-cover"
-            src={data?.portfolio?.quoteImages[0].url ||data?.portfolio?.quoteImages[1].url }
+            src={data?.portfolio?.quoteImages?.[1]?.url || data?.portfolio?.quoteImages?.[0]?.url || 'https://via.placeholder.com/300x200'}
             alt=""
           />
         </div>

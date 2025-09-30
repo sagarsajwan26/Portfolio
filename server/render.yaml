@@ -10,3 +10,19 @@ services:
         value: "production"
       - key: PORT
         value: "10000"
+      - key: JWT_SECRET
+        sync: false
+      - key: MONGO_DB_URI
+        sync: false
+      - key: CLOUD_NAME
+        sync: false
+      - key: CLOUD_API_KEY
+        sync: false
+      - key: CLOUD_API_SECRET
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: MY_EMAIL
+        sync: false

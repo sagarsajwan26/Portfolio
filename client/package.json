@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "vite preview --port 4173"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",
@@ -38,6 +39,7 @@
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "eslint.config.js",
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Sagar Sajwan",
+  "license": "ISC",
+  "homepage": "https://portfolio-iy2i-git-main-sagarsajwan26s-projects.vercel.app"
 }

@@ -34,7 +34,20 @@ app.use('/api/v1/portfolio',porfolioRouter)
 app.use('/api/v1/dashboard',dashboardRouter)
 
 app.get('/',(req,res)=>{
-    res.send('my profile server is working properly')
+    res.status(200).json({
+        message: 'Portfolio Server is running',
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV
+    })
+})
+
+app.get('/health',(req,res)=>{
+    res.status(200).json({
+        status: 'OK',
+        uptime: process.uptime(),
+        timestamp: new Date().toISOString()
+    })
 })
 
 app.use(errorHandler)
