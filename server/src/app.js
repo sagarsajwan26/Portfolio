@@ -16,7 +16,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(cors({
-    origin:["http://localhost:5173", "http://localhost:3000"],
+    origin:["http://localhost:5173", "https://vercel.com/sagarsajwan26s-projects/portfolio-iy2i/BZdG5vCTVt4yV3FvRPNkwY6Jd8o6"],
     credentials:true,
     methods:["GET","POST","PUT","DELETE"]
 }))
