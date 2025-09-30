@@ -1,12 +1,12 @@
 services:
   - type: web
     name: portfolio-server
-    env: node
+    runtime: node
     plan: free
-    buildCommand: npm install --legacy-peer-deps
-    startCommand: npm start
+    buildCommand: "npm install --legacy-peer-deps"
+    startCommand: "npm start"
     envVars:
       - key: NODE_ENV
-        value: production
+        value: "production"
       - key: PORT
-        value: 10000
+        value: "10000"
