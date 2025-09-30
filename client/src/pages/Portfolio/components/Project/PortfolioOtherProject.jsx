@@ -5,7 +5,7 @@ import Loading from '../../../../Components/loading/Loading'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { ScrollTrigger, SplitText } from 'gsap/all'
-import SIngleImage from './SIngleImage'
+import SingleImage from './SingleImage'
 
 const PortfolioOtherProject = () => {
   const navigate= useNavigate()
@@ -105,14 +105,14 @@ const PortfolioOtherProject = () => {
       </div>
       <div className='col-span-2 grid grid-cols-4 rounded-md overflow-hidden ' > 
         {data?.projects?.slice(0,8).map((item,idx)=>(
-          <SIngleImage key={idx} item={item} idx={idx} />
+          <SingleImage key={idx} item={item} idx={idx} />
         ))}
 
       </div>
       <div className='col-span-1 grid grid-cols-2 -rotate-12 relative bottom-[2vw] rounded-md overflow-hidden' >
 
           {data?.projects?.slice(8,12).map((item,idx)=>(
-           <SIngleImage key={idx} item={item} idx={idx} />
+           <SingleImage key={idx} item={item} idx={idx} />
           ))}  
 
       </div>
