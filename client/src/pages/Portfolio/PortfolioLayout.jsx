@@ -1,5 +1,4 @@
-import React, { useEffect, useRef,lazy, Suspense } from 'react'
-
+import React, { useEffect, useRef, lazy, Suspense, memo } from 'react'
 
 const PortfolioName = lazy(() => import('./components/PortfolioName'))
 const PortfolioAboutMe = lazy(() => import('./components/PortfolioAboutMe'))
@@ -15,9 +14,9 @@ import Loading from '../../Components/loading/Loading'
 import { useDispatch } from 'react-redux'
 import { getPortfolioDetails } from '../../store/portfolio/portfolioThunk'
 
-const PortfolioLayout = () => {
+const PortfolioLayout = memo(() => {
   const dispatch = useDispatch()
-const movingBall=useRef()
+  const movingBall = useRef()
   const handleMouseMove= (e)=>{
     const x= e.clientX 
     const y = e.clientY 
@@ -61,9 +60,9 @@ const movingBall=useRef()
     }
   },[])
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(getPortfolioDetails())
-  },[])
+  }, [dispatch])
   return (
     <div 
    
@@ -94,4 +93,4 @@ const movingBall=useRef()
   )
 }
 
-export default PortfolioLayout
+export default PortfolioLayout)
