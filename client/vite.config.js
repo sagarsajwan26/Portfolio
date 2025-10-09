@@ -8,7 +8,8 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser',
+    // Use default esbuild minifier to avoid optional terser dependency
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks: {
