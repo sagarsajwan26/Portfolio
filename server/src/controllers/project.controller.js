@@ -40,11 +40,11 @@ export const addProject = asyncHandler(async (req, res) => {
 
   let imageData = [];
 
+  const captionsArray = Array.isArray(captions) ? captions : (typeof captions === 'string' ? [captions] : [])
   images.forEach((file) => {
     if (file.fieldname.startsWith("image")) {
       const index = file.fieldname.split("_")[1];
-
-      const caption = captions[index];
+      const caption = captionsArray[index] || '';
       imageData.push({
         file,
         caption,

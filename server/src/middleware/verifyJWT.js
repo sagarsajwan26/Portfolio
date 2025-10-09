@@ -1,8 +1,13 @@
 import jwt from 'jsonwebtoken'
+import { ApiError } from '../utils/ApiError.js'
 
 
 export const verifyJWT = (req,res,next)=>{
-    const  token = req?.cookies?.token ||  req?.headers?.authorization.split(' ')[1]
+    const authHeader = req?.headers?.authorization || ''
+    const bearerToken = authHeader.startsWith('Bearer ')
+        ? authHeader.split(' ')[1]
+        : undefined
+    const  token = req?.cookies?.token ||  bearerToken
     if(!token){
         throw new ApiError(401,'Unauthorized Request')
     } 

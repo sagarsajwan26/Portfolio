@@ -10,7 +10,7 @@ import 'dotenv/config'
     
 
     export const uploadToCloudinary= async(fileBuffer)=>{
-   if(!fileBuffer) return new Error('image is required')
+   if(!fileBuffer) return Promise.reject(new Error('image is required'))
 
     return new Promise((resolve,reject)=>{
         const uploadStream= cloudinary.uploader.upload_stream({resource_type:"auto"},
