@@ -91,6 +91,6 @@ const PortfolioLayout = memo(() => {
       
     </div>
   )
-}
+});
 
 export default PortfolioLayout
