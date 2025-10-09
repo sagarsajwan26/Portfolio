@@ -93,4 +93,4 @@ const PortfolioLayout = memo(() => {
   )
 }
 
-export default PortfolioLayout)
+export default PortfolioLayout
